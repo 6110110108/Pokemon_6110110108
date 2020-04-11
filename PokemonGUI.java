@@ -14,22 +14,21 @@ public class PokemonGUI extends JFrame implements ActionListener {
 
     public PokemonGUI() {
         super("Pokémon");
+        System.out.println("Start PokemonGUI class");
         Container c = getContentPane();
         obj = new PokemonTrainer();
         bg = new JLabel((new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\background.gif")));
         Dimension sizeDefault = new Dimension(1280,720);
         p1 = new JPanel();
-        p1.setBorder(BorderFactory.createEmptyBorder(14, 14, 14, 14));
+        p1.setBorder(BorderFactory.createEmptyBorder(0, 14, 250, 14));
         p1.setLayout(new FlowLayout());
         JButton jb1 = new JButton("Start");
-        p1.add(Box.createRigidArea(new Dimension(0, 10)));
         p1.add(jb1);
-        p1.add(Box.createRigidArea(new Dimension(0, 15)));
         JButton jb2 = new JButton("Exit");
         jb2.setPreferredSize( jb1.getPreferredSize() );
         p1.add(jb2);
         c.add(bg, BorderLayout.CENTER);
-        c.add(p1, BorderLayout.WEST);
+        c.add(p1, BorderLayout.SOUTH);
         jb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
         jb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
         jb1.addActionListener(new ActionListener() {
@@ -38,7 +37,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 pressCount++;
                 if(pressCount >= 1){
                     trainerSetName();
-                    System.out.println("You press OK");
+                    System.out.println("You press start");
                     jb1.setVisible(false);
                     jb2.setVisible(false);
                 }
@@ -51,7 +50,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
             }
         });
         setVisible(true);
-        p1.setBackground(Color.orange);
+        p1.setBackground(Color.WHITE);
         c.setBackground(Color.WHITE);
         makeMenuBar();
         setSize(sizeDefault);
