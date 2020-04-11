@@ -6,23 +6,58 @@ import java.lang.NullPointerException;
 
 public class PokemonGUI extends JFrame implements ActionListener {
     private JMenuItem rank, exit, low, medium, high, developer, reference;
-    private JTextField jtf;
     private int pressCount = 0;
     private String getStringRank;
-    Container c;
-    PokemonTrainer obj;
-    JLabel background = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\background.gif"));
+    private JLabel bg;
+    private JPanel p1;
+    private PokemonTrainer obj;
 
     public PokemonGUI() {
         super("Pokémon");
-        c = getContentPane();
-        c.setBackground(Color.WHITE);
+        Container c = getContentPane();
+        obj = new PokemonTrainer();
+        bg = new JLabel((new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\background.gif")));
         Dimension sizeDefault = new Dimension(1280,720);
+        p1 = new JPanel();
+        p1.setBorder(BorderFactory.createEmptyBorder(14, 14, 14, 14));
+        p1.setLayout(new FlowLayout());
+        JButton jb1 = new JButton("Start");
+        p1.add(Box.createRigidArea(new Dimension(0, 10)));
+        p1.add(jb1);
+        p1.add(Box.createRigidArea(new Dimension(0, 15)));
+        JButton jb2 = new JButton("Exit");
+        jb2.setPreferredSize( jb1.getPreferredSize() );
+        p1.add(jb2);
+        c.add(bg, BorderLayout.CENTER);
+        c.add(p1, BorderLayout.WEST);
+        jb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        jb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        jb1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pressCount++;
+                if(pressCount >= 1){
+                    trainerSetName();
+                    System.out.println("You press OK");
+                    jb1.setVisible(false);
+                    jb2.setVisible(false);
+                }
+            }
+        });
+        jb2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        setVisible(true);
+        p1.setBackground(Color.orange);
+        c.setBackground(Color.WHITE);
         makeMenuBar();
-        pokemonStartButton();
-        c.setLayout(new FlowLayout()); // Text in the middle
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(sizeDefault);
+        setResizable(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -64,7 +99,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
         Object src = event.getSource();
-        JFrame f = new JFrame();
+        JFrame jf = new JFrame();
         if(src == rank){
             try{
                 if(obj.getRank() == 1){
@@ -86,7 +121,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                     getStringRank = "Master";
                 }
                 ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("trainer.gif"));
-                JOptionPane.showMessageDialog(f,"Username: " + obj.getName() +"\n" + "Level: " + obj.getLevel() +"\n"
+                JOptionPane.showMessageDialog(jf,"Username: " + obj.getName() +"\n" + "Level: " + obj.getLevel() +"\n"
                         + "Rank: " + getStringRank,"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
                 System.out.println("Can't loading image"); // If can not find image file.
@@ -94,7 +129,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         }
         else if(src == exit){
             int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to exit the game?",
-                    "Warning",JOptionPane.WARNING_MESSAGE);
+                    "Warning", JOptionPane.OK_CANCEL_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){
                 System.exit(0);
             }
@@ -108,7 +143,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         else if(src == developer){
             try{
                 ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("developer.png"));
-                JOptionPane.showMessageDialog(f,"SEOULCHA RATMUMAD \nSTUDENT ID: 6110110108 ","Developer",JOptionPane.INFORMATION_MESSAGE,icon);
+                JOptionPane.showMessageDialog(jf,"SEOULCHA RATMUMAD \nSTUDENT ID: 6110110108 ","Developer",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
                 System.out.println("Can't loading image"); // If can not find image file.
             }
@@ -116,61 +151,20 @@ public class PokemonGUI extends JFrame implements ActionListener {
         else if(src == reference){
             try{
                 ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("reference.png"));
-                JOptionPane.showMessageDialog(f,"240-210 Programing Techniques","Reference",JOptionPane.INFORMATION_MESSAGE,icon);
+                JOptionPane.showMessageDialog(jf,"240-210 Programing Techniques","Reference",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
-                System.out.println("Can't loading image"); // If can not find image file.
+                System.out.println("There's something wrong."); // If can not find image file.
             }
         }
-    }
-
-    public void pokemonStartButton() {
-        obj = new PokemonTrainer();
-        JPanel p = new JPanel(new GridBagLayout());
-        background.setLayout(new BorderLayout());
-        add(background);
-        background.setLayout(new FlowLayout());
-        JButton jb1 = new JButton("Start");
-        JButton jb2 = new JButton("Exit");
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        p.add(jb1);
-        gbc.gridx = 0;
-        //gbc.g
-        p.add(jb2);
-        background.add(p);
-        //background.add(jb1);
-        //background.add(jb2);
-        jb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        jb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        jb1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pressCount++;
-                if(pressCount >= 1){
-                    trainerSetName();
-                    System.out.println("You press OK");
-                    jb1.setVisible(false);
-                    jb2.setVisible(false);
-                }
-            }
-        });
-        jb2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        setVisible(true);
     }
 
     public void trainerSetName(){
         JLabel jl = new JLabel("Enter username: ");
         JTextField inputField = new JTextField(25);
         JButton ok = new JButton("OK");
-        background.add(jl);
-        background.add(inputField);
-        background.add(ok);
+        p1.add(jl);
+        p1.add(inputField);
+        p1.add(ok);
         ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
         ok.addActionListener(new ActionListener() {
             @Override
@@ -183,10 +177,10 @@ public class PokemonGUI extends JFrame implements ActionListener {
                     jl.setVisible(false);
                     inputField.setVisible(false);
                     ok.setVisible(false);
-                    background.setVisible(false);
+                    bg.setVisible(false);
+                    p1.setVisible(false);
                 }
             }
         });
     }
-
 }
