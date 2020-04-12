@@ -9,13 +9,13 @@ public class PokemonGUI extends JFrame implements ActionListener {
     private int pressCount = 0;
     private String getStringRank;
     private JLabel bg;
+    private Container c = getContentPane();
     private JPanel p1;
     private PokemonTrainer obj;
 
     public PokemonGUI() {
         super("Pokémon");
         System.out.println("Start PokemonGUI class");
-        Container c = getContentPane();
         obj = new PokemonTrainer();
         bg = new JLabel((new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\background.gif")));
         Dimension sizeDefault = new Dimension(1280,720);
@@ -49,7 +49,6 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.exit(0);
             }
         });
-        setVisible(true);
         p1.setBackground(Color.WHITE);
         c.setBackground(Color.WHITE);
         makeMenuBar();
@@ -121,7 +120,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 }
                 ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("trainer.gif"));
                 JOptionPane.showMessageDialog(jf,"Username: " + obj.getName() +"\n" + "Level: " + obj.getLevel() +"\n"
-                        + "Rank: " + getStringRank,"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
+                        + "Rank: " + getStringRank + "\n" + "Money: " + obj.getMoney(),"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
                 System.out.println("Can't loading image"); // If can not find image file.
             }
@@ -144,7 +143,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("developer.png"));
                 JOptionPane.showMessageDialog(jf,"SEOULCHA RATMUMAD \nSTUDENT ID: 6110110108 ","Developer",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
-                System.out.println("Can't loading image"); // If can not find image file.
+                System.out.println("Can't loading image icon"); // If can not find image file.
             }
         }
         else if(src == reference){
@@ -182,4 +181,5 @@ public class PokemonGUI extends JFrame implements ActionListener {
             }
         });
     }
+
 }
