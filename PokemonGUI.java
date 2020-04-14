@@ -5,20 +5,20 @@ import java.awt.event.ActionListener;
 import java.lang.NullPointerException;
 
 public class PokemonGUI extends JFrame implements ActionListener {
-    private JMenuItem rank, exit, low, medium, high, developer, reference;
-    private int pressCount = 0;
+    private JMenuItem rank, pokemonInBag, exit, low, medium, high, developer, reference;
+    private int pressCount = 0, check = 0;
     private String getStringRank;
     private JLabel bg;
     private Container c = getContentPane();
     private JPanel p1;
-    private PokemonTrainer obj;
+    private PokemonTrainer obj = new PokemonTrainer();
 
     public PokemonGUI() {
         super("Pokémon");
         System.out.println("Start PokemonGUI class");
-        obj = new PokemonTrainer();
         bg = new JLabel((new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\background.gif")));
         Dimension sizeDefault = new Dimension(1280,720);
+        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\iconbar.png");
         p1 = new JPanel();
         p1.setBorder(BorderFactory.createEmptyBorder(0, 14, 250, 14));
         p1.setLayout(new FlowLayout());
@@ -51,6 +51,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         });
         p1.setBackground(Color.WHITE);
         c.setBackground(Color.WHITE);
+        setIconImage(icon);
         makeMenuBar();
         setSize(sizeDefault);
         setResizable(true);
@@ -70,9 +71,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
         JMenu credit = new JMenu("Credit");
         menubar.add(credit);
         // Make menu item
-        rank = new JMenuItem("Trainer");
+        rank = new JMenuItem("Trainer Status");
         rank.addActionListener(this);
         pokemonMenu.add(rank);
+        pokemonInBag = new JMenuItem("Pokemon in Bag");
+        pokemonInBag.addActionListener(this);
+        pokemonMenu.add(pokemonInBag);
         exit = new JMenuItem("Exit");
         exit.addActionListener(this);
         pokemonMenu.add(exit);
@@ -96,6 +100,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event) {
+        int ch = 0;
         Object src = event.getSource();
         JFrame jf = new JFrame();
         if(src == rank){
@@ -118,16 +123,29 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 else if(obj.getRank() == 6){
                     getStringRank = "Master";
                 }
-                ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("trainer.gif"));
-                JOptionPane.showMessageDialog(jf,"Username: " + obj.getName() +"\n" + "Level: " + obj.getLevel() +"\n"
-                        + "Rank: " + getStringRank + "\n" + "Money: " + obj.getMoney(),"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
+                ch = obj.startCheck(check);
+                if(ch >= 1){
+                    System.out.println("Check set name complete");
+                    ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("trainer.gif"));
+                    JOptionPane.showMessageDialog(jf,"Username: " + obj.getName() +"\n" + "Level: " + obj.getLevel() +"\n"
+                            + "Rank: " + getStringRank + "\n" + "Money: " + obj.getMoney(),"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
+                }
+                 else
+                     JOptionPane.showMessageDialog(jf,"You must specify Username before starting the game.","Warning", JOptionPane.WARNING_MESSAGE);
             }catch (NullPointerException e) {
                 System.out.println("Can't loading image"); // If can not find image file.
             }
         }
+        else if(src == pokemonInBag) {
+            ch = obj.startCheck(check);
+            if(ch >= 1)
+                System.out.println("Forbidden");
+            else
+                JOptionPane.showMessageDialog(jf,"You must start the game.","Warning", JOptionPane.WARNING_MESSAGE);
+        }
         else if(src == exit){
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to exit the game?",
-                    "Warning", JOptionPane.OK_CANCEL_OPTION);
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to exit Pokémon game?",
+                    "Confirm Exit", JOptionPane.OK_CANCEL_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){
                 System.exit(0);
             }
@@ -170,6 +188,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 String s = inputField.getText();
                 System.out.println("You press OK, username: " + s);
                 obj.setName(s);
+                check++;
+                obj.startCheck(check);
                 pressCount++;
                 if(pressCount > 1){
                     jl.setVisible(false);
@@ -181,5 +201,4 @@ public class PokemonGUI extends JFrame implements ActionListener {
             }
         });
     }
-
 }
