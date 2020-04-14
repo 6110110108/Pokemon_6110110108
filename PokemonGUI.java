@@ -16,9 +16,9 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public PokemonGUI() {
         super("Pokémon");
         System.out.println("Start PokemonGUI class");
-        bg = new JLabel((new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\background.gif")));
+        bg = new JLabel((new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_background.gif")));
         Dimension sizeDefault = new Dimension(1280,720);
-        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\iconbar.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_iconbar.png");
         p1 = new JPanel();
         p1.setBorder(BorderFactory.createEmptyBorder(0, 14, 250, 14));
         p1.setLayout(new FlowLayout());
@@ -126,7 +126,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 ch = obj.startCheck(check);
                 if(ch >= 1){
                     System.out.println("Check set name complete");
-                    ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("trainer.gif"));
+                    ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("1_trainer.gif"));
                     JOptionPane.showMessageDialog(jf,"Username: " + obj.getName() +"\n" + "Level: " + obj.getLevel() +"\n"
                             + "Rank: " + getStringRank + "\n" + "Money: " + obj.getMoney(),"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
                 }
@@ -158,7 +158,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
             setExtendedState(MAXIMIZED_BOTH);
         else if(src == developer){
             try{
-                ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("developer.png"));
+                ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("1_developer.png"));
                 JOptionPane.showMessageDialog(jf,"SEOULCHA RATMUMAD \nSTUDENT ID: 6110110108 ","Developer",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
                 System.out.println("Can't loading image icon"); // If can not find image file.
@@ -166,7 +166,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         }
         else if(src == reference){
             try{
-                ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("reference.png"));
+                ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("1_reference.png"));
                 JOptionPane.showMessageDialog(jf,"240-210 Programing Techniques","Reference",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
                 System.out.println("There's something wrong."); // If can not find image file.
