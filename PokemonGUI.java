@@ -131,7 +131,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                             + "Rank: " + getStringRank + "\n" + "Money: " + obj.getMoney(),"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
                 }
                  else
-                     JOptionPane.showMessageDialog(jf,"You must specify Username before starting the game.","Warning", JOptionPane.WARNING_MESSAGE);
+                     JOptionPane.showMessageDialog(jf,"You must start the game before beginning this.","Warning", JOptionPane.WARNING_MESSAGE);
             }catch (NullPointerException e) {
                 System.out.println("Can't loading image"); // If can not find image file.
             }
@@ -141,7 +141,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
             if(ch >= 1)
                 System.out.println("Forbidden");
             else
-                JOptionPane.showMessageDialog(jf,"You must start the game.","Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(jf,"You must start the game before beginning this.","Warning", JOptionPane.WARNING_MESSAGE);
         }
         else if(src == exit){
             int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to exit Pokémon game?",
@@ -177,6 +177,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void trainerSetName(){
         JLabel jl = new JLabel("Enter username: ");
         JTextField inputField = new JTextField(25);
+        JFrame jf = new JFrame();
         JButton ok = new JButton("OK");
         p1.add(jl);
         p1.add(inputField);
@@ -186,19 +187,68 @@ public class PokemonGUI extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s = inputField.getText();
-                System.out.println("You press OK, username: " + s);
-                obj.setName(s);
-                check++;
-                obj.startCheck(check);
-                pressCount++;
-                if(pressCount > 1){
-                    jl.setVisible(false);
-                    inputField.setVisible(false);
-                    ok.setVisible(false);
-                    bg.setVisible(false);
-                    p1.setVisible(false);
+                int lengthNameCheck = s.length();
+                System.out.println("Your name length: " + lengthNameCheck);
+                if(lengthNameCheck >= 1){
+                    System.out.println("You press OK, username: " + s);
+                    obj.setName(s);
+                    check++;
+                    obj.startCheck(check);
+                    pressCount++;
+                    if(pressCount > 1){
+                        jl.setVisible(false);
+                        inputField.setVisible(false);
+                        ok.setVisible(false);
+                        bg.setVisible(false);
+                        p1.setVisible(false);
+                        randomFirstPokemon();
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(jf,"You must enter more than 1 letter.","Warning",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+    }
+
+    public void randomFirstPokemon() {
+        pressCount = 0;
+        JFrame f = new JFrame("Random Pokémon");
+        JButton t1 = new JButton("Random");
+        JButton t2 = new JButton("Select");
+        JLabel l = new JLabel("Random your first Pokémon");
+        t1.setBounds(302,360,100 ,50);
+        t2.setBounds(302,360,100,50);
+        l.setBounds(122,10,1000,50);
+        l.setForeground(Color.BLUE);
+        l.setFont(new Font("Courier New" , Font.BOLD,30));
+        f.getContentPane().add(l);
+        f.getContentPane().add(t1);
+        f.getContentPane().add(t2);
+        t1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("You click Random");
+                pressCount++;
+                t1.setVisible(false);
+                if(pressCount >= 1){
+                    t2.setVisible(true);
+                    t2.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            System.out.println("You click Select");
+                        }
+                    });
+                }
+            }
+        });
+        t2.setVisible(false);
+        f.setSize(704,480);
+        f.setResizable(false);
+        f.getContentPane().setLayout(null);
+        f.getContentPane().setBackground(Color.WHITE);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
     }
 }
