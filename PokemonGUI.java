@@ -212,6 +212,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
         statusDiglett();
         statusPidgey();
         statusRattata();
+        statusMeowth();
+        statusJigglypuff();
         c.setBackground(Color.DARK_GRAY);
         c.setLayout(null);
         c.setVisible(true);
@@ -741,7 +743,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setForeground(Color.CYAN);
         p1.setBackground(Color.GRAY);
     }
-
+    //------------------------------------------------------------------------------------------------------------------
     public void statusDiglett() {
         // Diglett
         String s = "Attack\nEnemy";
@@ -952,29 +954,29 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setForeground(Color.ORANGE);
         p1.setBackground(Color.GRAY);
     }
-
+    //------------------------------------------------------------------------------------------------------------------
     public void statusRattata() {
         // Rattata
         String s = "Attack\nEnemy";
-        Rattata rt = new Rattata("Rattata",395,295,1);
+        Snorlax  sl = new Snorlax ("Snorlax ",395,295,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
         JFrame f = new JFrame("Rename Pokémon");
         JButton ok = new JButton("OK");
         // Text Field
-        JLabel l1 = new JLabel(rt.getName());
+        JLabel l1 = new JLabel(sl.getName());
         JLabel l2 = new JLabel("Status: ");
-        JLabel l3 = new JLabel("Level: " + rt.getLevel());
-        JLabel l4 = new JLabel("Attack: " + rt.getAttackPower());
-        JLabel l5 = new JLabel("HP: " + rt.getHp());
-        JLabel l6 = new JLabel("EXP: " + rt.getExp() + "/1000");
-        JLabel i1 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Rattata.gif"));
+        JLabel l3 = new JLabel("Level: " + sl.getLevel());
+        JLabel l4 = new JLabel("Attack: " + sl.getAttackPower());
+        JLabel l5 = new JLabel("HP: " + sl.getHp());
+        JLabel l6 = new JLabel("EXP: " + sl.getExp() + "/1000");
+        JLabel i1 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_snorlax.gif"));
         JButton t1 = new JButton("Feed");
         JButton t2 = new JButton("Sleep");
         JButton t3 = new JButton("Rename");
         JButton t4 = new JButton("<html>" + s.replaceAll("\\n", "<br>") + "</html>");
-        l1.setBounds(70,1,200,50);      //Name
+        l1.setBounds(75,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
         l4.setBounds(10,190,100,50);    //Attack
@@ -1020,9 +1022,9 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rt.feedPokemon();
-                l6.setText("EXP: " + rt.getExp() + "/1000");
-                l3.setText("Level: " + rt.getLevel());
+                sl.feedPokemon();
+                l6.setText("EXP: " + sl.getExp() + "/1000");
+                l3.setText("Level: " + sl.getLevel());
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1037,7 +1039,218 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 JFrame jf = new JFrame("Warning");
                 String get = tf.getText();
                 System.out.println(get);
-                rt.setName(get);
+                sl.setName(get);
+                int lengthNameCheck = get.length();
+                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    l1.setText(get);
+                    f.setVisible(false);
+                    tf.setText("");
+                }
+            }
+        });
+        l2.setForeground(Color.darkGray);
+        l3.setForeground(Color.darkGray);
+        l4.setForeground(Color.darkGray);
+        l5.setForeground(Color.darkGray);
+        l6.setForeground(Color.darkGray);
+        l1.setForeground(Color.BLUE);
+        p1.setBackground(Color.lightGray);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    public void statusMeowth() {
+        // Meowth
+        String s = "Attack\nEnemy";
+        Meowth mt = new Meowth("Meowth",390,290,1);
+        JPanel p1 = new JPanel();
+        // Text Field
+        JTextField tf = new JTextField("",25);
+        JFrame f = new JFrame("Rename Pokémon");
+        JButton ok = new JButton("OK");
+        // Text Field
+        JLabel l1 = new JLabel(mt.getName());
+        JLabel l2 = new JLabel("Status: ");
+        JLabel l3 = new JLabel("Level: " + mt.getLevel());
+        JLabel l4 = new JLabel("Attack: " + mt.getAttackPower());
+        JLabel l5 = new JLabel("HP: " + mt.getHp());
+        JLabel l6 = new JLabel("EXP: " + mt.getExp() + "/1000");
+        JLabel i1 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Meowth.gif"));
+        JButton t1 = new JButton("Feed");
+        JButton t2 = new JButton("Sleep");
+        JButton t3 = new JButton("Rename");
+        JButton t4 = new JButton("<html>" + s.replaceAll("\\n", "<br>") + "</html>");
+        l1.setBounds(80,1,200,50);      //Name
+        l2.setBounds(10,145,100,50);    //Status -> Label
+        l3.setBounds(10,175,100,50);    //Level
+        l4.setBounds(10,190,100,50);    //Attack
+        l5.setBounds(10,205,100,50);    //HP
+        l6.setBounds(10,220,200,50);    //EXP
+        i1.setBounds(75,40,100,100);    //Image
+        t1.setBounds(10,265,65,40);     //BT Feed
+        t2.setBounds(80,265,70,40);     //BT Sleep
+        t3.setBounds(155,265,80,40);    //BT Rename
+        t4.setBounds(155,200,80,50);    //BT Attack
+        p1.setBounds(772,336,244, 316);   //Panel
+        l1.setFont(new Font("Courier New" , Font.BOLD,20));     //Name
+        l2.setFont(new Font("Courier New", Font.BOLD,16));      //Status -> Label
+        l3.setFont(new Font("Courier New", Font.BOLD,15));      //Level
+        l4.setFont(new Font("Courier New", Font.BOLD,15));      //Attack
+        l5.setFont(new Font("Courier New", Font.BOLD,15));      //HP
+        l6.setFont(new Font("Courier New", Font.BOLD,15));      //EXP
+        p1.setLayout(null);
+        p1.add(l1);
+        p1.add(l2);
+        p1.add(l3);
+        p1.add(l4);
+        p1.add(l5);
+        p1.add(l6);
+        p1.add(i1);
+        p1.add(t1);
+        p1.add(t2);
+        p1.add(t3);
+        p1.add(t4);
+        f.add(tf);
+        f.add(ok);
+        c.add(p1);
+        f.setLayout(new FlowLayout());
+        f.setSize(300,100);
+        f.setLocationRelativeTo(null);
+        f.setResizable(false);
+        f.setVisible(false);
+        t1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mt.feedPokemon();
+                l6.setText("EXP: " + mt.getExp() + "/1000");
+                l3.setText("Level: " + mt.getLevel());
+            }
+        });
+        t3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.setVisible(true);
+            }
+        });
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame jf = new JFrame("Warning");
+                String get = tf.getText();
+                System.out.println(get);
+                mt.setName(get);
+                int lengthNameCheck = get.length();
+                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                    l1.setText(get);
+                    f.setVisible(false);
+                    tf.setText("");
+                }
+            }
+        });
+        l2.setForeground(Color.lightGray);
+        l3.setForeground(Color.lightGray);
+        l4.setForeground(Color.lightGray);
+        l5.setForeground(Color.lightGray);
+        l6.setForeground(Color.lightGray);
+        l1.setForeground(Color.ORANGE);
+        p1.setBackground(Color.gray);
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    public void statusJigglypuff() {
+        // Jigglypuff
+        String s = "Attack\nEnemy";
+        Jigglypuff  gl = new Jigglypuff ("Jigglypuff ",395,295,1);
+        JPanel p1 = new JPanel();
+        // Text Field
+        JTextField tf = new JTextField("",25);
+        JFrame f = new JFrame("Rename Pokémon");
+        JButton ok = new JButton("OK");
+        // Text Field
+        JLabel l1 = new JLabel(gl.getName());
+        JLabel l2 = new JLabel("Status: ");
+        JLabel l3 = new JLabel("Level: " + gl.getLevel());
+        JLabel l4 = new JLabel("Attack: " + gl.getAttackPower());
+        JLabel l5 = new JLabel("HP: " + gl.getHp());
+        JLabel l6 = new JLabel("EXP: " + gl.getExp() + "/1000");
+        JLabel i1 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Jigglypuff.gif"));
+        JButton t1 = new JButton("Feed");
+        JButton t2 = new JButton("Sleep");
+        JButton t3 = new JButton("Rename");
+        JButton t4 = new JButton("<html>" + s.replaceAll("\\n", "<br>") + "</html>");
+        l1.setBounds(70,1,200,50);      //Name
+        l2.setBounds(10,145,100,50);    //Status -> Label
+        l3.setBounds(10,175,100,50);    //Level
+        l4.setBounds(10,190,100,50);    //Attack
+        l5.setBounds(10,205,100,50);    //HP
+        l6.setBounds(10,220,200,50);    //EXP
+        i1.setBounds(75,40,100,100);    //Image
+        t1.setBounds(10,265,65,40);     //BT Feed
+        t2.setBounds(80,265,70,40);     //BT Sleep
+        t3.setBounds(155,265,80,40);    //BT Rename
+        t4.setBounds(155,200,80,50);    //BT Attack
+        p1.setBounds(1026,336,244, 316);   //Panel
+        l1.setFont(new Font("Courier New" , Font.BOLD,20));     //Name
+        l2.setFont(new Font("Courier New", Font.BOLD,16));      //Status -> Label
+        l3.setFont(new Font("Courier New", Font.BOLD,15));      //Level
+        l4.setFont(new Font("Courier New", Font.BOLD,15));      //Attack
+        l5.setFont(new Font("Courier New", Font.BOLD,15));      //HP
+        l6.setFont(new Font("Courier New", Font.BOLD,15));      //EXP
+        p1.setLayout(null);
+        p1.add(l1);
+        p1.add(l2);
+        p1.add(l3);
+        p1.add(l4);
+        p1.add(l5);
+        p1.add(l6);
+        p1.add(i1);
+        p1.add(t1);
+        p1.add(t2);
+        p1.add(t3);
+        p1.add(t4);
+        f.add(tf);
+        f.add(ok);
+        c.add(p1);
+        f.setLayout(new FlowLayout());
+        f.setSize(300,100);
+        f.setLocationRelativeTo(null);
+        f.setResizable(false);
+        f.setVisible(false);
+        t1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gl.feedPokemon();
+                l6.setText("EXP: " + gl.getExp() + "/1000");
+                l3.setText("Level: " + gl.getLevel());
+            }
+        });
+        t3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.setVisible(true);
+            }
+        });
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame jf = new JFrame("Warning");
+                String get = tf.getText();
+                System.out.println(get);
+                gl.setName(get);
                 int lengthNameCheck = get.length();
                 if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
                     JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
