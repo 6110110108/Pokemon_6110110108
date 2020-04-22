@@ -3,8 +3,8 @@ public class PokemonTrainer {
     protected String name;
     protected int level = 1;
     protected int rank = 1;
-    protected int money = 0;
-    private int check = 0;
+    protected int money = 200;
+    protected int check = 0;
 
     public void setName(String name){
         this.name = name;
@@ -24,7 +24,6 @@ public class PokemonTrainer {
     }
 
     public void setRank(int rank){
-
         this.rank = rank;
     }
 
