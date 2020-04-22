@@ -6,7 +6,7 @@ import java.lang.NullPointerException;
 
 public class PokemonGUI extends JFrame implements ActionListener {
     private JMenuItem rank, exit, low, medium, high, developer, reference;
-    private int pressCount = 0, check = 0, rand = 0;
+    private int pressCount = 0, check = 0;
     private String getStringRank;
     private JLabel bg;
     private JPanel p1;
@@ -304,6 +304,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + p.getExp() + "/1000");
                         l3.setText("Level: " + p.getLevel());
                         l4.setText("Attack: " + p.getAttackPower());
+                        l5.setText("HP: " + p.getHp());
                         System.out.println("Attack cmd: " + p.getAttackPower());
                     }
                 });
@@ -314,6 +315,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + p.getExp() + "/1000");
                         l3.setText("Level: " + p.getLevel());
                         l4.setText("Attack: " + p.getAttackPower());
+                        l5.setText("HP: " + p.getHp());
                         System.out.println("Attack cmd: " + p.getAttackPower());
 
                     }
@@ -325,6 +327,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + p.getExp() + "/1000");
                         l3.setText("Level: " + p.getLevel());
                         l4.setText("Attack: " + p.getAttackPower());
+                        l5.setText("HP: " + p.getHp());
                         System.out.println("Attack cmd: " + p.getAttackPower());
                     }
                 });
@@ -545,6 +548,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + cha.getExp() + "/1000");
                         l3.setText("Level: " + cha.getLevel());
                         l4.setText("Attack: " + cha.getAttackPower());
+                        l5.setText("HP: " + cha.getHp());
                         System.out.println("Attack cmd: " + cha.getAttackPower());
                     }
                 });
@@ -555,6 +559,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + cha.getExp() + "/1000");
                         l3.setText("Level: " + cha.getLevel());
                         l4.setText("Attack: " + cha.getAttackPower());
+                        l5.setText("HP: " + cha.getHp());
                         System.out.println("Attack cmd: " + cha.getAttackPower());
 
                     }
@@ -566,6 +571,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + cha.getExp() + "/1000");
                         l3.setText("Level: " + cha.getLevel());
                         l4.setText("Attack: " + cha.getAttackPower());
+                        l5.setText("HP: " + cha.getHp());
                         System.out.println("Attack cmd: " + cha.getAttackPower());
                     }
                 });
@@ -593,6 +599,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 // Food menu ------------------------------------------------
             }
         });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cha.sleep(1);
+                        l5.setText("HP: " + cha.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cha.sleep(2);
+                        l5.setText("HP: " + cha.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cha.sleep(3);
+                        l5.setText("HP: " + cha.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cha.sleep(4);
+                        l5.setText("HP: " + cha.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cha.sleep(5);
+                        l5.setText("HP: " + cha.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
+            }
+        });
         t3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -607,8 +688,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 cha.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 11 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -711,6 +792,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + ek.getExp() + "/1000");
                         l3.setText("Level: " + ek.getLevel());
                         l4.setText("Attack: " + ek.getAttackPower());
+                        l5.setText("HP: " + ek.getHp());
                         System.out.println("Attack cmd: " + ek.getAttackPower());
                     }
                 });
@@ -721,6 +803,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + ek.getExp() + "/1000");
                         l3.setText("Level: " + ek.getLevel());
                         l4.setText("Attack: " + ek.getAttackPower());
+                        l5.setText("HP: " + ek.getHp());
                         System.out.println("Attack cmd: " + ek.getAttackPower());
 
                     }
@@ -732,6 +815,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + ek.getExp() + "/1000");
                         l3.setText("Level: " + ek.getLevel());
                         l4.setText("Attack: " + ek.getAttackPower());
+                        l5.setText("HP: " + ek.getHp());
                         System.out.println("Attack cmd: " + ek.getAttackPower());
                     }
                 });
@@ -757,6 +841,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 fr.setVisible(true);
                 fr.setLocationRelativeTo(null);
                 // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ek.sleep(1);
+                        l5.setText("HP: " + ek.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ek.sleep(2);
+                        l5.setText("HP: " + ek.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ek.sleep(3);
+                        l5.setText("HP: " + ek.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ek.sleep(4);
+                        l5.setText("HP: " + ek.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ek.sleep(5);
+                        l5.setText("HP: " + ek.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -877,6 +1036,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + wt.getExp() + "/1000");
                         l3.setText("Level: " + wt.getLevel());
                         l4.setText("Attack: " + wt.getAttackPower());
+                        l5.setText("HP: " + wt.getHp());
                         System.out.println("Attack cmd: " + wt.getAttackPower());
                     }
                 });
@@ -887,6 +1047,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + wt.getExp() + "/1000");
                         l3.setText("Level: " + wt.getLevel());
                         l4.setText("Attack: " + wt.getAttackPower());
+                        l5.setText("HP: " + wt.getHp());
                         System.out.println("Attack cmd: " + wt.getAttackPower());
 
                     }
@@ -898,6 +1059,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + wt.getExp() + "/1000");
                         l3.setText("Level: " + wt.getLevel());
                         l4.setText("Attack: " + wt.getAttackPower());
+                        l5.setText("HP: " + wt.getHp());
                         System.out.println("Attack cmd: " + wt.getAttackPower());
                     }
                 });
@@ -923,6 +1085,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 fr.setVisible(true);
                 fr.setLocationRelativeTo(null);
                 // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wt.sleep(1);
+                        l5.setText("HP: " + wt.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wt.sleep(2);
+                        l5.setText("HP: " + wt.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wt.sleep(3);
+                        l5.setText("HP: " + wt.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wt.sleep(4);
+                        l5.setText("HP: " + wt.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wt.sleep(5);
+                        l5.setText("HP: " + wt.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1043,6 +1280,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + sq.getExp() + "/1000");
                         l3.setText("Level: " + sq.getLevel());
                         l4.setText("Attack: " + sq.getAttackPower());
+                        l5.setText("HP: " + sq.getHp());
                         System.out.println("Attack cmd: " + sq.getAttackPower());
                     }
                 });
@@ -1053,6 +1291,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + sq.getExp() + "/1000");
                         l3.setText("Level: " + sq.getLevel());
                         l4.setText("Attack: " + sq.getAttackPower());
+                        l5.setText("HP: " + sq.getHp());
                         System.out.println("Attack cmd: " + sq.getAttackPower());
 
                     }
@@ -1064,6 +1303,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + sq.getExp() + "/1000");
                         l3.setText("Level: " + sq.getLevel());
                         l4.setText("Attack: " + sq.getAttackPower());
+                        l5.setText("HP: " + sq.getHp());
                         System.out.println("Attack cmd: " + sq.getAttackPower());
                     }
                 });
@@ -1089,6 +1329,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 fr.setVisible(true);
                 fr.setLocationRelativeTo(null);
                 // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sq.sleep(1);
+                        l5.setText("HP: " + sq.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sq.sleep(2);
+                        l5.setText("HP: " + sq.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sq.sleep(3);
+                        l5.setText("HP: " + sq.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sq.sleep(4);
+                        l5.setText("HP: " + sq.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sq.sleep(5);
+                        l5.setText("HP: " + sq.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1209,6 +1524,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + dl.getExp() + "/1000");
                         l3.setText("Level: " + dl.getLevel());
                         l4.setText("Attack: " + dl.getAttackPower());
+                        l5.setText("HP: " + dl.getHp());
                         System.out.println("Attack cmd: " + dl.getAttackPower());
                     }
                 });
@@ -1219,6 +1535,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + dl.getExp() + "/1000");
                         l3.setText("Level: " + dl.getLevel());
                         l4.setText("Attack: " + dl.getAttackPower());
+                        l5.setText("HP: " + dl.getHp());
                         System.out.println("Attack cmd: " + dl.getAttackPower());
 
                     }
@@ -1230,6 +1547,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + dl.getExp() + "/1000");
                         l3.setText("Level: " + dl.getLevel());
                         l4.setText("Attack: " + dl.getAttackPower());
+                        l5.setText("HP: " + dl.getHp());
                         System.out.println("Attack cmd: " + dl.getAttackPower());
                     }
                 });
@@ -1255,6 +1573,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 fr.setVisible(true);
                 fr.setLocationRelativeTo(null);
                 // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dl.sleep(1);
+                        l5.setText("HP: " + dl.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dl.sleep(2);
+                        l5.setText("HP: " + dl.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dl.sleep(3);
+                        l5.setText("HP: " + dl.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dl.sleep(4);
+                        l5.setText("HP: " + dl.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dl.sleep(5);
+                        l5.setText("HP: " + dl.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1376,6 +1769,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + pg.getExp() + "/1000");
                         l3.setText("Level: " + pg.getLevel());
                         l4.setText("Attack: " + pg.getAttackPower());
+                        l5.setText("HP: " + pg.getHp());
                         System.out.println("Attack cmd: " + pg.getAttackPower());
                     }
                 });
@@ -1386,6 +1780,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + pg.getExp() + "/1000");
                         l3.setText("Level: " + pg.getLevel());
                         l4.setText("Attack: " + pg.getAttackPower());
+                        l5.setText("HP: " + pg.getHp());
                         System.out.println("Attack cmd: " + pg.getAttackPower());
 
                     }
@@ -1397,6 +1792,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + pg.getExp() + "/1000");
                         l3.setText("Level: " + pg.getLevel());
                         l4.setText("Attack: " + pg.getAttackPower());
+                        l5.setText("HP: " + pg.getHp());
                         System.out.println("Attack cmd: " + pg.getAttackPower());
                     }
                 });
@@ -1422,6 +1818,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 fr.setVisible(true);
                 fr.setLocationRelativeTo(null);
                 // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pg.sleep(1);
+                        l5.setText("HP: " + pg.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pg.sleep(2);
+                        l5.setText("HP: " + pg.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pg.sleep(3);
+                        l5.setText("HP: " + pg.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pg.sleep(4);
+                        l5.setText("HP: " + pg.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pg.sleep(5);
+                        l5.setText("HP: " + pg.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1542,6 +2013,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + sl.getExp() + "/1000");
                         l3.setText("Level: " + sl.getLevel());
                         l4.setText("Attack: " + sl.getAttackPower());
+                        l5.setText("HP: " + sl.getHp());
                         System.out.println("Attack cmd: " + sl.getAttackPower());
                     }
                 });
@@ -1552,6 +2024,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + sl.getExp() + "/1000");
                         l3.setText("Level: " + sl.getLevel());
                         l4.setText("Attack: " + sl.getAttackPower());
+                        l5.setText("HP: " + sl.getHp());
                         System.out.println("Attack cmd: " + sl.getAttackPower());
 
                     }
@@ -1563,6 +2036,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + sl.getExp() + "/1000");
                         l3.setText("Level: " + sl.getLevel());
                         l4.setText("Attack: " + sl.getAttackPower());
+                        l5.setText("HP: " + sl.getHp());
                         System.out.println("Attack cmd: " + sl.getAttackPower());
                     }
                 });
@@ -1588,6 +2062,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 fr.setVisible(true);
                 fr.setLocationRelativeTo(null);
                 // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sl.sleep(1);
+                        l5.setText("HP: " + sl.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sl.sleep(2);
+                        l5.setText("HP: " + sl.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sl.sleep(3);
+                        l5.setText("HP: " + sl.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sl.sleep(4);
+                        l5.setText("HP: " + sl.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sl.sleep(5);
+                        l5.setText("HP: " + sl.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1709,6 +2258,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + mt.getExp() + "/1000");
                         l3.setText("Level: " + mt.getLevel());
                         l4.setText("Attack: " + mt.getAttackPower());
+                        l5.setText("HP: " + mt.getHp());
                         System.out.println("Attack cmd: " + mt.getAttackPower());
                     }
                 });
@@ -1719,6 +2269,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + mt.getExp() + "/1000");
                         l3.setText("Level: " + mt.getLevel());
                         l4.setText("Attack: " + mt.getAttackPower());
+                        l5.setText("HP: " + mt.getHp());
                         System.out.println("Attack cmd: " + mt.getAttackPower());
 
                     }
@@ -1730,6 +2281,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + mt.getExp() + "/1000");
                         l3.setText("Level: " + mt.getLevel());
                         l4.setText("Attack: " + mt.getAttackPower());
+                        l5.setText("HP: " + mt.getHp());
                         System.out.println("Attack cmd: " + mt.getAttackPower());
                     }
                 });
@@ -1755,6 +2307,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 fr.setVisible(true);
                 fr.setLocationRelativeTo(null);
                 // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mt.sleep(1);
+                        l5.setText("HP: " + mt.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mt.sleep(2);
+                        l5.setText("HP: " + mt.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mt.sleep(3);
+                        l5.setText("HP: " + mt.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mt.sleep(4);
+                        l5.setText("HP: " + mt.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mt.sleep(5);
+                        l5.setText("HP: " + mt.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1875,6 +2502,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + gl.getExp() + "/1000");
                         l3.setText("Level: " + gl.getLevel());
                         l4.setText("Attack: " + gl.getAttackPower());
+                        l5.setText("HP: " + gl.getHp());
                         System.out.println("Attack cmd: " + gl.getAttackPower());
                     }
                 });
@@ -1885,6 +2513,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + gl.getExp() + "/1000");
                         l3.setText("Level: " + gl.getLevel());
                         l4.setText("Attack: " + gl.getAttackPower());
+                        l5.setText("HP: " + gl.getHp());
                         System.out.println("Attack cmd: " + gl.getAttackPower());
 
                     }
@@ -1896,6 +2525,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                         l6.setText("EXP: " + gl.getExp() + "/1000");
                         l3.setText("Level: " + gl.getLevel());
                         l4.setText("Attack: " + gl.getAttackPower());
+                        l5.setText("HP: " + gl.getHp());
                         System.out.println("Attack cmd: " + gl.getAttackPower());
                     }
                 });
@@ -1921,6 +2551,81 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 fr.setVisible(true);
                 fr.setLocationRelativeTo(null);
                 // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gl.sleep(1);
+                        l5.setText("HP: " + gl.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gl.sleep(2);
+                        l5.setText("HP: " + gl.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gl.sleep(3);
+                        l5.setText("HP: " + gl.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gl.sleep(4);
+                        l5.setText("HP: " + gl.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gl.sleep(5);
+                        l5.setText("HP: " + gl.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
