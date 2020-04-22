@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 import java.lang.NullPointerException;
 
 public class PokemonGUI extends JFrame implements ActionListener {
-    private JMenuItem rank, pokemonInBag, exit, low, medium, high, developer, reference;
+    private JMenuItem rank, exit, low, medium, high, developer, reference;
     private int pressCount = 0, check = 0, rand = 0;
-    private String getStringRank, stringCallFunc;
+    private String getStringRank;
     private JLabel bg;
     private JPanel p1;
     private Container c;
@@ -243,7 +243,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(75,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -286,9 +286,145 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                p.feedPokemon();
-                l6.setText("EXP: " + p.getExp() + "/1000");
-                l3.setText("Level: " + p.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        p.feedPokemon("Berries");
+                        l6.setText("EXP: " + p.getExp() + "/1000");
+                        l3.setText("Level: " + p.getLevel());
+                        l4.setText("Attack: " + p.getAttackPower());
+                        System.out.println("Attack cmd: " + p.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        p.feedPokemon("Poffin");
+                        l6.setText("EXP: " + p.getExp() + "/1000");
+                        l3.setText("Level: " + p.getLevel());
+                        l4.setText("Attack: " + p.getAttackPower());
+                        System.out.println("Attack cmd: " + p.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        p.feedPokemon("Honey");
+                        l6.setText("EXP: " + p.getExp() + "/1000");
+                        l3.setText("Level: " + p.getLevel());
+                        l4.setText("Attack: " + p.getAttackPower());
+                        System.out.println("Attack cmd: " + p.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                pa.setBackground(Color.lightGray);
+                fr.add(pa);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
+            }
+        });
+        t2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Sleep menu ------------------------------------------------
+                JFrame jf = new JFrame("Sleep");
+                JPanel jp = new JPanel();
+                JButton j1 = new JButton("01:00 hr");
+                JButton j2 = new JButton("02:00 hr");
+                JButton j3 = new JButton("03:00 hr");
+                JButton j4 = new JButton("04:00 hr");
+                JButton j5 = new JButton("05:00 hr");
+                JButton ok = new JButton("OK");
+                jp.setLayout(new FlowLayout());
+                jp.add(j1);
+                jp.add(j2);
+                jp.add(j3);
+                jp.add(j4);
+                jp.add(j5);
+                jp.add(ok);
+                jf.add(jp);
+                j1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        p.sleep(1);
+                        l5.setText("HP: " + p.getHp());
+                    }
+                });
+                j2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        p.sleep(2);
+                        l5.setText("HP: " + p.getHp());
+                    }
+                });
+                j3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        p.sleep(3);
+                        l5.setText("HP: " + p.getHp());
+                    }
+                });
+                j4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        p.sleep(4);
+                        l5.setText("HP: " + p.getHp());
+                    }
+                });
+                j5.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        p.sleep(5);
+                        l5.setText("HP: " + p.getHp());
+                    }
+                });
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        jf.setVisible(false);
+                    }
+                });
+                j1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                j5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                ok.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jp.setBackground(Color.lightGray);
+                jf.setSize(450,105);
+                jf.setVisible(true);
+                jf.setLocationRelativeTo(null);
+                jf.setResizable(false);
+                // Sleep menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -348,7 +484,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(70,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -391,9 +527,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cha.feedPokemon();
-                l6.setText("EXP: " + cha.getExp() + "/1000");
-                l3.setText("Level: " + cha.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cha.feedPokemon("Berries");
+                        l6.setText("EXP: " + cha.getExp() + "/1000");
+                        l3.setText("Level: " + cha.getLevel());
+                        l4.setText("Attack: " + cha.getAttackPower());
+                        System.out.println("Attack cmd: " + cha.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cha.feedPokemon("Poffin");
+                        l6.setText("EXP: " + cha.getExp() + "/1000");
+                        l3.setText("Level: " + cha.getLevel());
+                        l4.setText("Attack: " + cha.getAttackPower());
+                        System.out.println("Attack cmd: " + cha.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        cha.feedPokemon("Honey");
+                        l6.setText("EXP: " + cha.getExp() + "/1000");
+                        l3.setText("Level: " + cha.getLevel());
+                        l4.setText("Attack: " + cha.getAttackPower());
+                        System.out.println("Attack cmd: " + cha.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -453,7 +650,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(75,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -496,9 +693,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ek.feedPokemon();
-                l6.setText("EXP: " + ek.getExp() + "/1000");
-                l3.setText("Level: " + ek.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ek.feedPokemon("Berries");
+                        l6.setText("EXP: " + ek.getExp() + "/1000");
+                        l3.setText("Level: " + ek.getLevel());
+                        l4.setText("Attack: " + ek.getAttackPower());
+                        System.out.println("Attack cmd: " + ek.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ek.feedPokemon("Poffin");
+                        l6.setText("EXP: " + ek.getExp() + "/1000");
+                        l3.setText("Level: " + ek.getLevel());
+                        l4.setText("Attack: " + ek.getAttackPower());
+                        System.out.println("Attack cmd: " + ek.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ek.feedPokemon("Honey");
+                        l6.setText("EXP: " + ek.getExp() + "/1000");
+                        l3.setText("Level: " + ek.getLevel());
+                        l4.setText("Attack: " + ek.getAttackPower());
+                        System.out.println("Attack cmd: " + ek.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -558,7 +816,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(70,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -601,9 +859,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                wt.feedPokemon();
-                l6.setText("EXP: " + wt.getExp() + "/1000");
-                l3.setText("Level: " + wt.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wt.feedPokemon("Berries");
+                        l6.setText("EXP: " + wt.getExp() + "/1000");
+                        l3.setText("Level: " + wt.getLevel());
+                        l4.setText("Attack: " + wt.getAttackPower());
+                        System.out.println("Attack cmd: " + wt.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wt.feedPokemon("Poffin");
+                        l6.setText("EXP: " + wt.getExp() + "/1000");
+                        l3.setText("Level: " + wt.getLevel());
+                        l4.setText("Attack: " + wt.getAttackPower());
+                        System.out.println("Attack cmd: " + wt.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        wt.feedPokemon("Honey");
+                        l6.setText("EXP: " + wt.getExp() + "/1000");
+                        l3.setText("Level: " + wt.getLevel());
+                        l4.setText("Attack: " + wt.getAttackPower());
+                        System.out.println("Attack cmd: " + wt.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -663,7 +982,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(70,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -706,9 +1025,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sq.feedPokemon();
-                l6.setText("EXP: " + sq.getExp() + "/1000");
-                l3.setText("Level: " + sq.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sq.feedPokemon("Berries");
+                        l6.setText("EXP: " + sq.getExp() + "/1000");
+                        l3.setText("Level: " + sq.getLevel());
+                        l4.setText("Attack: " + sq.getAttackPower());
+                        System.out.println("Attack cmd: " + sq.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sq.feedPokemon("Poffin");
+                        l6.setText("EXP: " + sq.getExp() + "/1000");
+                        l3.setText("Level: " + sq.getLevel());
+                        l4.setText("Attack: " + sq.getAttackPower());
+                        System.out.println("Attack cmd: " + sq.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sq.feedPokemon("Honey");
+                        l6.setText("EXP: " + sq.getExp() + "/1000");
+                        l3.setText("Level: " + sq.getLevel());
+                        l4.setText("Attack: " + sq.getAttackPower());
+                        System.out.println("Attack cmd: " + sq.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -747,7 +1127,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusDiglett() {
         // Diglett
         String s = "Attack\nEnemy";
-        Diglett dl = new Diglett("Wartortle",460,360,1);
+        Diglett dl = new Diglett("Diglett",460,360,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -765,10 +1145,10 @@ public class PokemonGUI extends JFrame implements ActionListener {
         JButton t2 = new JButton("Sleep");
         JButton t3 = new JButton("Rename");
         JButton t4 = new JButton("<html>" + s.replaceAll("\\n", "<br>") + "</html>");
-        l1.setBounds(70,1,200,50);      //Name
+        l1.setBounds(75,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -811,9 +1191,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dl.feedPokemon();
-                l6.setText("EXP: " + dl.getExp() + "/1000");
-                l3.setText("Level: " + dl.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dl.feedPokemon("Berries");
+                        l6.setText("EXP: " + dl.getExp() + "/1000");
+                        l3.setText("Level: " + dl.getLevel());
+                        l4.setText("Attack: " + dl.getAttackPower());
+                        System.out.println("Attack cmd: " + dl.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dl.feedPokemon("Poffin");
+                        l6.setText("EXP: " + dl.getExp() + "/1000");
+                        l3.setText("Level: " + dl.getLevel());
+                        l4.setText("Attack: " + dl.getAttackPower());
+                        System.out.println("Attack cmd: " + dl.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dl.feedPokemon("Honey");
+                        l6.setText("EXP: " + dl.getExp() + "/1000");
+                        l3.setText("Level: " + dl.getLevel());
+                        l4.setText("Attack: " + dl.getAttackPower());
+                        System.out.println("Attack cmd: " + dl.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -874,7 +1315,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(80,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -917,9 +1358,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pg.feedPokemon();
-                l6.setText("EXP: " + pg.getExp() + "/1000");
-                l3.setText("Level: " + pg.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pg.feedPokemon("Berries");
+                        l6.setText("EXP: " + pg.getExp() + "/1000");
+                        l3.setText("Level: " + pg.getLevel());
+                        l4.setText("Attack: " + pg.getAttackPower());
+                        System.out.println("Attack cmd: " + pg.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pg.feedPokemon("Poffin");
+                        l6.setText("EXP: " + pg.getExp() + "/1000");
+                        l3.setText("Level: " + pg.getLevel());
+                        l4.setText("Attack: " + pg.getAttackPower());
+                        System.out.println("Attack cmd: " + pg.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pg.feedPokemon("Honey");
+                        l6.setText("EXP: " + pg.getExp() + "/1000");
+                        l3.setText("Level: " + pg.getLevel());
+                        l4.setText("Attack: " + pg.getAttackPower());
+                        System.out.println("Attack cmd: " + pg.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -956,7 +1458,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     }
     //------------------------------------------------------------------------------------------------------------------
     public void statusRattata() {
-        // Rattata
+        // Snorlax
         String s = "Attack\nEnemy";
         Snorlax  sl = new Snorlax ("Snorlax ",395,295,1);
         JPanel p1 = new JPanel();
@@ -979,7 +1481,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(75,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -1022,9 +1524,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sl.feedPokemon();
-                l6.setText("EXP: " + sl.getExp() + "/1000");
-                l3.setText("Level: " + sl.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sl.feedPokemon("Berries");
+                        l6.setText("EXP: " + sl.getExp() + "/1000");
+                        l3.setText("Level: " + sl.getLevel());
+                        l4.setText("Attack: " + sl.getAttackPower());
+                        System.out.println("Attack cmd: " + sl.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sl.feedPokemon("Poffin");
+                        l6.setText("EXP: " + sl.getExp() + "/1000");
+                        l3.setText("Level: " + sl.getLevel());
+                        l4.setText("Attack: " + sl.getAttackPower());
+                        System.out.println("Attack cmd: " + sl.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sl.feedPokemon("Honey");
+                        l6.setText("EXP: " + sl.getExp() + "/1000");
+                        l3.setText("Level: " + sl.getLevel());
+                        l4.setText("Attack: " + sl.getAttackPower());
+                        System.out.println("Attack cmd: " + sl.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1085,7 +1648,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(80,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -1128,9 +1691,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mt.feedPokemon();
-                l6.setText("EXP: " + mt.getExp() + "/1000");
-                l3.setText("Level: " + mt.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mt.feedPokemon("Berries");
+                        l6.setText("EXP: " + mt.getExp() + "/1000");
+                        l3.setText("Level: " + mt.getLevel());
+                        l4.setText("Attack: " + mt.getAttackPower());
+                        System.out.println("Attack cmd: " + mt.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mt.feedPokemon("Poffin");
+                        l6.setText("EXP: " + mt.getExp() + "/1000");
+                        l3.setText("Level: " + mt.getLevel());
+                        l4.setText("Attack: " + mt.getAttackPower());
+                        System.out.println("Attack cmd: " + mt.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        mt.feedPokemon("Honey");
+                        l6.setText("EXP: " + mt.getExp() + "/1000");
+                        l3.setText("Level: " + mt.getLevel());
+                        l4.setText("Attack: " + mt.getAttackPower());
+                        System.out.println("Attack cmd: " + mt.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
@@ -1190,7 +1814,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
         l1.setBounds(70,1,200,50);      //Name
         l2.setBounds(10,145,100,50);    //Status -> Label
         l3.setBounds(10,175,100,50);    //Level
-        l4.setBounds(10,190,100,50);    //Attack
+        l4.setBounds(10,190,150,50);    //Attack
         l5.setBounds(10,205,100,50);    //HP
         l6.setBounds(10,220,200,50);    //EXP
         i1.setBounds(75,40,100,100);    //Image
@@ -1233,9 +1857,70 @@ public class PokemonGUI extends JFrame implements ActionListener {
         t1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gl.feedPokemon();
-                l6.setText("EXP: " + gl.getExp() + "/1000");
-                l3.setText("Level: " + gl.getLevel());
+                // Food menu ------------------------------------------------
+                JFrame fr = new JFrame("Select food");
+                JPanel pa = new JPanel();
+                JButton jt1 = new JButton("Berries");
+                JButton jt2 = new JButton("Poffin");
+                JButton jt3 = new JButton("Honey");
+                JButton o = new JButton("OK");
+                jt1.setBounds(5,5,275,35);
+                jt2.setBounds(5,45,275,35);
+                jt3.setBounds(5,85,275,35);
+                o.setBounds(110,125,70,35);
+                jt1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gl.feedPokemon("Berries");
+                        l6.setText("EXP: " + gl.getExp() + "/1000");
+                        l3.setText("Level: " + gl.getLevel());
+                        l4.setText("Attack: " + gl.getAttackPower());
+                        System.out.println("Attack cmd: " + gl.getAttackPower());
+                    }
+                });
+                jt2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gl.feedPokemon("Poffin");
+                        l6.setText("EXP: " + gl.getExp() + "/1000");
+                        l3.setText("Level: " + gl.getLevel());
+                        l4.setText("Attack: " + gl.getAttackPower());
+                        System.out.println("Attack cmd: " + gl.getAttackPower());
+
+                    }
+                });
+                jt3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gl.feedPokemon("Honey");
+                        l6.setText("EXP: " + gl.getExp() + "/1000");
+                        l3.setText("Level: " + gl.getLevel());
+                        l4.setText("Attack: " + gl.getAttackPower());
+                        System.out.println("Attack cmd: " + gl.getAttackPower());
+                    }
+                });
+                o.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fr.setVisible(false);
+                    }
+                });
+                pa.add(jt1);
+                pa.add(jt2);
+                pa.add(jt3);
+                pa.add(o);
+                pa.setLayout(null);
+                jt1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                jt3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                o.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fr.add(pa);
+                fr.setBackground(Color.ORANGE);
+                fr.setSize(300,200);
+                fr.setResizable(false);
+                fr.setVisible(true);
+                fr.setLocationRelativeTo(null);
+                // Food menu ------------------------------------------------
             }
         });
         t3.addActionListener(new ActionListener() {
