@@ -74,13 +74,14 @@ public abstract class Pokemon {
     public void feedPokemon(String food) {
         foodFeed(food);
         if(exp < 1000) {
-            exp = exp + 100;
+            exp = exp + 10;
         }
         else {
             exp = 0;
             level++;
             setLevel(level);
-            //levelUptoAtk
+            levelUptoAtk();
+            levelUptoHp();
         }
     }
 
@@ -137,10 +138,50 @@ public abstract class Pokemon {
     }
 
     public void levelUptoAtk() {
-        int gLv = getLevel();
-        if(level >= 2) {
-            attackPower += 100;
-            hp += 100;
+        int rand = (int)(Math.random()*5);
+        if(attackPower <= maxAttack()) {
+            if(rand == 0) {
+                attackPower += 50;
+            }
+            else if(rand == 1) {
+                attackPower += 60;
+            }
+            else if(rand == 2) {
+                attackPower += 70;
+            }
+            else if(rand == 3) {
+                attackPower += 80;
+            }
+            else if(rand == 4) {
+                attackPower += 90;
+            }
+        }
+        else {
+            attackPower = maxAttack();
+        }
+    }
+
+    public void levelUptoHp() {
+        int rand = (int)(Math.random()*5);
+        if(hp <= maxHp()) {
+            if(rand == 0) {
+                hp += 50;
+            }
+            else if(rand == 1) {
+                hp += 60;
+            }
+            else if(rand == 2) {
+                hp += 70;
+            }
+            else if(rand == 3) {
+                hp += 80;
+            }
+            else if(rand == 4) {
+                hp += 90;
+            }
+        }
+        else {
+            hp = maxHp();
         }
     }
 
