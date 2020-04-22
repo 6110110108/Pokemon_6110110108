@@ -1,8 +1,20 @@
-/*public class Pikachu extends Pokemon {
-    public Pikachu(String name) {
-        super(name);
+public class Pikachu extends Pokemon {
+    public Pikachu(String name, int hp, int power, int level) {
+        super(name, hp, power, level);
     }
-    public void attack(Pokemon enemy, int damage) {
 
+    @Override
+    public String skillPokemon() {
+        return "Electric";
     }
-}*/
+
+    @Override
+    public int maxAttack() {
+        return 30000;
+    }
+
+    @Override
+    public int maxHp() {
+        return 40000;
+    }
+}
