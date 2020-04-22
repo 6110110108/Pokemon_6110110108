@@ -149,4 +149,3 @@ public abstract class Pokemon {
     public abstract int maxAttack();
 
 }
-// Todo list tomorrow -> 1) If level up -> Something must change, or feed 2) Attack enemy will be sucsess tomorrow (If possible)
