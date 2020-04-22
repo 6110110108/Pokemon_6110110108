@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.NullPointerException;
-//
+
 public class PokemonGUI extends JFrame implements ActionListener {
     private JMenuItem rank, exit, low, medium, high, developer, reference;
     private int pressCount = 0, check = 0, rand = 0;
