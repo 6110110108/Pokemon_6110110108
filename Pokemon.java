@@ -6,16 +6,14 @@ public abstract class Pokemon {
     protected int level = 1;
     protected int exp = 0;
     protected int check = 0, atkCheck = 0;
+    protected int result = 0;
+    private PokemonTrainer obj = new PokemonTrainer();
 
     public Pokemon(String name, int hp, int attackPower, int level) {
         this.name = name;
         this.hp = hp;
         this.attackPower = attackPower;
         this.level = level;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
     }
 
     public void setHp(int hp) {
@@ -28,10 +26,6 @@ public abstract class Pokemon {
 
     public void setLevel(int level){
         this.level = level;
-    }
-
-    public void setExp(int exp){
-        this.exp = exp;
     }
 
     public String getName() {
@@ -304,6 +298,15 @@ public abstract class Pokemon {
             System.out.println("Attack power and HP of your Pokemon loss 10%");
             return "Win";
         }
+    }
+
+    public int cumulativeDamage(int rAtk) {
+        int cmtDmg = 0;
+        if(attackPower >= rAtk) {
+            cmtDmg = rAtk;
+        }
+        result = result + cmtDmg;
+        return result;
     }
 
     public abstract String skillPokemon();
