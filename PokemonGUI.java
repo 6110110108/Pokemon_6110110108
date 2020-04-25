@@ -7,12 +7,12 @@ import java.util.Random;
 
 public class PokemonGUI extends JFrame implements ActionListener {
     private JMenuItem rank, exit, low, medium, high, developer, reference;
-    private int pressCount = 0, check = 0;
+    private int pressCount = 0, check = 0, resultDmg = 0;
     private String getStringRank;
     private JLabel bg;
     private JPanel p1;
     private Container c;
-    private PokemonTrainer obj = new PokemonTrainer();
+    public PokemonTrainer obj = new PokemonTrainer();
 
     public PokemonGUI() {
         super("Pokémon");
@@ -104,35 +104,39 @@ public class PokemonGUI extends JFrame implements ActionListener {
         JFrame jf = new JFrame();
         if(src == rank){
             try{
+                obj.setRank(resultDmg);
                 if(obj.getRank() == 1){
                     getStringRank = "Bronze";
                 }
-                else if(obj.getRank() == 2){
+                if(obj.getRank() == 2){
                     getStringRank = "Silver";
                 }
-                else if(obj.getRank() == 3){
+                if(obj.getRank() == 3){
                     getStringRank = "Gold";
                 }
-                else if(obj.getRank() == 4){
+                if(obj.getRank() == 4){
                     getStringRank = "Diamond";
                 }
-                else if(obj.getRank() == 5){
-                    getStringRank = "Elit";
+                if(obj.getRank() == 5){
+                    getStringRank = "Elite";
                 }
-                else if(obj.getRank() == 6){
+                if(obj.getRank() == 6){
                     getStringRank = "Master";
+                }
+                if(obj.getRank() == 7){
+                    getStringRank = "Conqueror";
                 }
                 ch = obj.startCheck(check);
                 if(ch >= 1){
-                    System.out.println("Check set name complete");
                     ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("1_trainer.gif"));
                     JOptionPane.showMessageDialog(jf,"Username: " + obj.getName() +"\n" + "Level: " + obj.getLevel() +"\n"
-                            + "Rank: " + getStringRank + "\n" + "Money: " + obj.getMoney(),"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
+                            + "Rank: " + getStringRank,"Trainer",JOptionPane.INFORMATION_MESSAGE,icon);
                 }
                  else
                      JOptionPane.showMessageDialog(jf,"You must start the game before beginning this.","Warning", JOptionPane.WARNING_MESSAGE);
             }catch (NullPointerException e) {
-                System.out.println("Can't loading image"); // If can not find image file.
+                System.out.println("There's something wrong.");
+                JOptionPane.showMessageDialog(jf,"There's something wrong.","Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
         else if(src == exit){
@@ -153,7 +157,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("1_developer.png"));
                 JOptionPane.showMessageDialog(jf,"SEOULCHA RATMUMAD \nSTUDENT ID: 6110110108 ","Developer",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
-                System.out.println("Can't loading image icon"); // If can not find image file.
+                System.out.println("There's something wrong.");
+                JOptionPane.showMessageDialog(jf,"There's something wrong.","Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
         else if(src == reference){
@@ -161,7 +166,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("1_reference.png"));
                 JOptionPane.showMessageDialog(jf,"240-210 Programing Techniques\nhttps://stackoverflow.com","Reference",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
-                System.out.println("There's something wrong."); // If can not load image .
+                System.out.println("There's something wrong.");
+                JOptionPane.showMessageDialog(jf,"There's something wrong.","Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
@@ -526,6 +532,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     l3.setText("Level: " + pk.getLevel());
                                     l4.setText("Attack: " + pk.getAttackPower());
                                     l5.setText("HP: " + pk.getHp());
+                                    resultDmg = resultDmg + pk.cumulativeDamage(rdAtk); //-------------- Cumulative Power Attack
+                                    System.out.println("Cumulative damage total = " + resultDmg);
                                     if(s.equals("Lose")) {
                                         JFrame jfl = new JFrame("Attack result");
                                         JPanel jpl = new JPanel();
@@ -610,6 +618,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     l3.setText("Level: " + pk.getLevel());
                                     l4.setText("Attack: " + pk.getAttackPower());
                                     l5.setText("HP: " + pk.getHp());
+                                    resultDmg = resultDmg + pk.cumulativeDamage(rdAtk); //-------------- Cumulative Power Attack
+                                    System.out.println("Cumulative damage total = " + resultDmg);
                                     if(s.equals("Lose")) {
                                         JFrame jfl = new JFrame("Attack result");
                                         JPanel jpl = new JPanel();
@@ -694,6 +704,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     l3.setText("Level: " + pk.getLevel());
                                     l4.setText("Attack: " + pk.getAttackPower());
                                     l5.setText("HP: " + pk.getHp());
+                                    resultDmg = resultDmg + pk.cumulativeDamage(rdAtk); //-------------- Cumulative Power Attack
+                                    System.out.println("Cumulative damage total = " + resultDmg);
                                     if(s.equals("Lose")) {
                                         JFrame jfl = new JFrame("Attack result");
                                         JPanel jpl = new JPanel();
@@ -778,6 +790,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     l3.setText("Level: " + pk.getLevel());
                                     l4.setText("Attack: " + pk.getAttackPower());
                                     l5.setText("HP: " + pk.getHp());
+                                    resultDmg = resultDmg + pk.cumulativeDamage(rdAtk); //-------------- Cumulative Power Attack
+                                    System.out.println("Cumulative damage total = " + resultDmg);
                                     if(s.equals("Lose")) {
                                         JFrame jfl = new JFrame("Attack result");
                                         JPanel jpl = new JPanel();
@@ -862,6 +876,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     l3.setText("Level: " + pk.getLevel());
                                     l4.setText("Attack: " + pk.getAttackPower());
                                     l5.setText("HP: " + pk.getHp());
+                                    resultDmg = resultDmg + pk.cumulativeDamage(rdAtk); //-------------- Cumulative Power Attack
+                                    System.out.println("Cumulative damage total = " + resultDmg);
                                     if(s.equals("Lose")) {
                                         JFrame jfl = new JFrame("Attack result");
                                         JPanel jpl = new JPanel();
@@ -946,6 +962,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     l3.setText("Level: " + pk.getLevel());
                                     l4.setText("Attack: " + pk.getAttackPower());
                                     l5.setText("HP: " + pk.getHp());
+                                    resultDmg = resultDmg + pk.cumulativeDamage(rdAtk); //-------------- Cumulative Power Attack
+                                    System.out.println("Cumulative damage total = " + resultDmg);
                                     if(s.equals("Lose")) {
                                         JFrame jfl = new JFrame("Attack result");
                                         JPanel jpl = new JPanel();
