@@ -5,9 +5,9 @@ public abstract class Pokemon {
     protected int attackPower = 0;
     protected int level = 1;
     protected int exp = 0;
-    protected int check = 0;
+    protected int check = 0, atkCheck = 0;
 
-    public Pokemon(String name, int attackPower, int hp, int level) {
+    public Pokemon(String name, int hp, int attackPower, int level) {
         this.name = name;
         this.hp = hp;
         this.attackPower = attackPower;
@@ -40,10 +40,15 @@ public abstract class Pokemon {
 
     public int getHp() {
         int maxHp = maxHp();
-        if(hp <= maxHp)
+        if(atkCheck >= 1) {
             return hp;
-        else
-            return maxHp;
+        }
+        else {
+            if(hp <= maxHp)
+                return hp;
+            else
+                return hp = maxHp;
+        }
     }
 
     public int getAttackPower() {
@@ -52,18 +57,21 @@ public abstract class Pokemon {
             check++;
             attackPokemonWSkill();
             return attackPower;
-
         }
         else {
-            if(attackPower <= maxAttack())
+            if(atkCheck >= 1) {
                 return attackPower;
-            else
-                return maxAttack();
+            }
+            else {
+                if(attackPower <= maxAttack())
+                    return attackPower;
+                else
+                    return attackPower = maxAttack();
+            }
         }
     }
 
     public int getLevel() {
-        System.out.println("level (cmd): " + level);
         return level;
     }
 
@@ -86,6 +94,7 @@ public abstract class Pokemon {
     }
 
     public void foodFeed(String food) {
+        atkCheck = 0;
         if(food.equals("Berries")){
              attackPower = attackPower + 3;
         }
@@ -93,7 +102,7 @@ public abstract class Pokemon {
              attackPower = attackPower + 2;
         }
         else if(food.equals("Honey")){
-             attackPower = attackPower + 1;
+             attackPower = attackPower + 10000; // Test
         }
     }
 
@@ -120,9 +129,10 @@ public abstract class Pokemon {
     }
 
     public void sleep(int sleep) {
+        atkCheck = 0;
         if(hp <= maxHp()){
             if(sleep == 1)
-                hp = hp + 10;
+                hp = hp + 10000; // Test
             else if(sleep == 2)
                 hp = hp + 20;
             else if(sleep == 3)
@@ -182,6 +192,117 @@ public abstract class Pokemon {
         }
         else {
             hp = maxHp();
+        }
+    }
+
+    public String attackEnemy(int rdAtk, int rdHp) {
+        atkCheck++;
+        if(rdAtk > getAttackPower() && rdHp > getHp()) {
+            hp = hp - (( hp * 95 ) / 100);
+            attackPower = attackPower - ((attackPower * 95) / 100);
+            if(exp < 1000) {
+                exp = exp + 20;
+            }
+            else {
+                exp = 0;
+                level++;
+                setLevel(level);
+                levelUptoAtk();
+                levelUptoHp();
+            }
+            System.out.println("Attack power and HP of your Pokemon loss 95%");
+            return "Lose";
+        }
+        if(getAttackPower() >= rdAtk && getHp() >= rdHp) {
+            hp = hp - (( hp * 5 ) / 100);
+            attackPower = attackPower - ((attackPower * 5) / 100);
+            if(exp < 1000) {
+                exp = exp + 500;
+            }
+            else {
+                exp = 0;
+                level++;
+                setLevel(level);
+                levelUptoAtk();
+                levelUptoHp();
+            }
+            System.out.println("Attack power and HP of your Pokemon loss 5%");
+            return "Win";
+        }
+        if(getAttackPower() >= rdAtk && getHp() <= rdHp) {
+            if(getAttackPower() <= (rdAtk + ((rdAtk * 50)/100))){
+                hp = hp - (( hp * 50 ) / 100);
+                attackPower = attackPower - ((attackPower * 50) / 100);
+                if(exp < 1000) {
+                    exp = exp + 50;
+                }
+                else {
+                    exp = 0;
+                    level++;
+                    setLevel(level);
+                    levelUptoAtk();
+                    levelUptoHp();
+                }
+                System.out.println("Attack power and HP of your Pokemon loss 50%");
+                return "Lose";
+            }
+            else {
+                hp = hp - (( hp * 10 ) / 100);
+                attackPower = attackPower - ((attackPower * 10) / 100);
+                if(exp < 1000) {
+                    exp = exp + 250;
+                }
+                else {
+                    exp = 0;
+                    level++;
+                    setLevel(level);
+                    levelUptoAtk();
+                    levelUptoHp();
+                }
+                System.out.println("Attack power and HP of your Pokemon loss 10%");
+                return "Win";
+            }
+        }
+        if(getAttackPower() <= rdAtk && getHp() >= rdHp) {
+            if(getHp() <= (rdHp + ((rdHp * 50)/100))) {
+                hp = hp - (( hp * 50 ) / 100);
+                attackPower = attackPower - ((attackPower * 50) / 100);
+                if(exp < 1000) {
+                    exp = exp + 50;
+                }
+                else {
+                    exp = 0;
+                    level++;
+                    setLevel(level);
+                    levelUptoAtk();
+                    levelUptoHp();
+                }
+                System.out.println("Attack power and HP of your Pokemon loss 50%");
+                return "Lose";
+            }
+            else {
+                hp = hp - (( hp * 10 ) / 100);
+                attackPower = attackPower - ((attackPower * 10) / 100);
+                exp = exp + 250;
+                System.out.println("Attack power and HP of your Pokemon loss 10%");
+                return "Win";
+            }
+        }
+        else {
+            hp = hp - (( hp * 10 ) / 100);
+            attackPower = attackPower - ((attackPower * 10) / 100);
+            if(exp < 1000) {
+                exp = exp + 200;
+            }
+            else {
+                exp = 0;
+                level++;
+                setLevel(level);
+                levelUptoAtk();
+                levelUptoHp();
+            }
+            System.out.println("Attack power and HP of your Pokemon loss 10%");
+            return "Win";
         }
     }
 
