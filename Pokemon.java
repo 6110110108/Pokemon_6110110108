@@ -76,7 +76,7 @@ public abstract class Pokemon {
     public void feedPokemon(String food) {
         foodFeed(food);
         if(exp < 1000) {
-            exp = exp + 10;
+            exp = exp + 500; //test
         }
         else {
             exp = 0;
