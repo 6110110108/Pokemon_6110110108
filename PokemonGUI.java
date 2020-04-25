@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.NullPointerException;
+import java.util.Random;
 
 public class PokemonGUI extends JFrame implements ActionListener {
     private JMenuItem rank, exit, low, medium, high, developer, reference;
@@ -158,9 +159,9 @@ public class PokemonGUI extends JFrame implements ActionListener {
         else if(src == reference){
             try{
                 ImageIcon icon = new ImageIcon(PokemonGUI.class.getResource("1_reference.png"));
-                JOptionPane.showMessageDialog(jf,"240-210 Programing Techniques","Reference",JOptionPane.INFORMATION_MESSAGE,icon);
+                JOptionPane.showMessageDialog(jf,"240-210 Programing Techniques\nhttps://stackoverflow.com","Reference",JOptionPane.INFORMATION_MESSAGE,icon);
             }catch (NullPointerException e) {
-                System.out.println("There's something wrong."); // If can not find image file.
+                System.out.println("There's something wrong."); // If can not load image .
             }
         }
     }
@@ -222,19 +223,19 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusPikachu() {
         // Pikachu
         String s = "Attack\nEnemy";
-        Pikachu p = new Pikachu("Pikachu",500,400,1);
+        Pikachu pk = new Pikachu("Pikachu",500,400,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
         JFrame f = new JFrame("Rename Pokémon");
         JButton ok = new JButton("OK");
         // Text Field
-        JLabel l1 = new JLabel(p.getName());
+        JLabel l1 = new JLabel(pk.getName());
         JLabel l2 = new JLabel("Status: ");
-        JLabel l3 = new JLabel("Level: " + p.getLevel());
-        JLabel l4 = new JLabel("Attack: " + p.getAttackPower());
-        JLabel l5 = new JLabel("HP: " + p.getHp());
-        JLabel l6 = new JLabel("EXP: " + p.getExp() + "/1000");
+        JLabel l3 = new JLabel("Level: " + pk.getLevel());
+        JLabel l4 = new JLabel("Attack: " + pk.getAttackPower());
+        JLabel l5 = new JLabel("HP: " + pk.getHp());
+        JLabel l6 = new JLabel("EXP: " + pk.getExp() + "/1000");
         JLabel i1 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_pikachu.gif"));
         JButton t1 = new JButton("Feed");
         JButton t2 = new JButton("Sleep");
@@ -300,35 +301,35 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 jt1.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        p.feedPokemon("Berries");
-                        l6.setText("EXP: " + p.getExp() + "/1000");
-                        l3.setText("Level: " + p.getLevel());
-                        l4.setText("Attack: " + p.getAttackPower());
-                        l5.setText("HP: " + p.getHp());
-                        System.out.println("Attack cmd: " + p.getAttackPower());
+                        pk.feedPokemon("Berries");
+                        l6.setText("EXP: " + pk.getExp() + "/1000");
+                        l3.setText("Level: " + pk.getLevel());
+                        l4.setText("Attack: " + pk.getAttackPower());
+                        l5.setText("HP: " + pk.getHp());
+                        System.out.println("Attack cmd: " + pk.getAttackPower());
                     }
                 });
                 jt2.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        p.feedPokemon("Poffin");
-                        l6.setText("EXP: " + p.getExp() + "/1000");
-                        l3.setText("Level: " + p.getLevel());
-                        l4.setText("Attack: " + p.getAttackPower());
-                        l5.setText("HP: " + p.getHp());
-                        System.out.println("Attack cmd: " + p.getAttackPower());
+                        pk.feedPokemon("Poffin");
+                        l6.setText("EXP: " + pk.getExp() + "/1000");
+                        l3.setText("Level: " + pk.getLevel());
+                        l4.setText("Attack: " + pk.getAttackPower());
+                        l5.setText("HP: " + pk.getHp());
+                        System.out.println("Attack cmd: " + pk.getAttackPower());
 
                     }
                 });
                 jt3.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        p.feedPokemon("Honey");
-                        l6.setText("EXP: " + p.getExp() + "/1000");
-                        l3.setText("Level: " + p.getLevel());
-                        l4.setText("Attack: " + p.getAttackPower());
-                        l5.setText("HP: " + p.getHp());
-                        System.out.println("Attack cmd: " + p.getAttackPower());
+                        pk.feedPokemon("Honey");
+                        l6.setText("EXP: " + pk.getExp() + "/1000");
+                        l3.setText("Level: " + pk.getLevel());
+                        l4.setText("Attack: " + pk.getAttackPower());
+                        l5.setText("HP: " + pk.getHp());
+                        System.out.println("Attack cmd: " + pk.getAttackPower());
                     }
                 });
                 o.addActionListener(new ActionListener() {
@@ -378,36 +379,36 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 j1.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        p.sleep(1);
-                        l5.setText("HP: " + p.getHp());
+                        pk.sleep(1);
+                        l5.setText("HP: " + pk.getHp());
                     }
                 });
                 j2.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        p.sleep(2);
-                        l5.setText("HP: " + p.getHp());
+                        pk.sleep(2);
+                        l5.setText("HP: " + pk.getHp());
                     }
                 });
                 j3.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        p.sleep(3);
-                        l5.setText("HP: " + p.getHp());
+                        pk.sleep(3);
+                        l5.setText("HP: " + pk.getHp());
                     }
                 });
                 j4.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        p.sleep(4);
-                        l5.setText("HP: " + p.getHp());
+                        pk.sleep(4);
+                        l5.setText("HP: " + pk.getHp());
                     }
                 });
                 j5.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        p.sleep(5);
-                        l5.setText("HP: " + p.getHp());
+                        pk.sleep(5);
+                        l5.setText("HP: " + pk.getHp());
                     }
                 });
                 ok.addActionListener(new ActionListener() {
@@ -442,7 +443,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 JFrame jf = new JFrame("Warning");
                 String get = tf.getText();
                 System.out.println(get);
-                p.setName(get);
+                pk.setName(get);
                 int lengthNameCheck = get.length();
                 if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
                     JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
@@ -452,6 +453,585 @@ public class PokemonGUI extends JFrame implements ActionListener {
                     f.setVisible(false);
                     tf.setText("");
                 }
+            }
+        });
+        t4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Attack menu ------------------------------------------------------
+                JFrame fAtk = new JFrame("Attack menu");
+                JPanel pnAtk = new JPanel();
+                JButton rd = new JButton("Find enemy around you");
+                JButton y = new JButton("Yes");
+                JButton n = new JButton("No");
+
+                JLabel img1 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Enemy_Machoke.gif"));
+                JLabel img2 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Enemy_Geodude.gif"));
+                JLabel img3 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Enemy_Magnemite.gif"));
+                JLabel img4 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Enemy_Gengar.gif"));
+                JLabel img5 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Enemy_Onix.gif"));
+                JLabel img6 = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Enemy_Jynx.gif"));
+                JLabel lAtk1 = new JLabel("Attack Enemy");
+                JLabel lAtk2 = new JLabel();
+                JLabel lAtk3 = new JLabel("Do you want to attack Pokemon Enemy?");
+
+                lAtk1.setFont(new Font("Courier New" , Font.BOLD,40));
+                lAtk2.setFont(new Font("Courier New" , Font.BOLD,20));
+                lAtk3.setFont(new Font("Courier New" , Font.BOLD,20));
+
+                lAtk1.setBounds(200,10,500,50);
+                lAtk1.setForeground(Color.lightGray);
+                rd.setBounds(250,230,180,40);
+
+                pnAtk.add(img1);
+                pnAtk.add(img2);
+                pnAtk.add(img3);
+                pnAtk.add(img4);
+                pnAtk.add(img5);
+                pnAtk.add(img6);
+                pnAtk.add(rd);
+                pnAtk.add(y);
+                pnAtk.add(n);
+                pnAtk.add(lAtk1);
+                pnAtk.add(lAtk2);
+                pnAtk.add(lAtk3);
+
+                rd.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { // JFrame size 700 * 500
+                        rd.setVisible(false);
+                        Random r = new Random();
+                        int rand = (int)(Math.random()*6);
+                        int rdAtk = r.nextInt(20000)+100;
+                        int rdHp = r.nextInt(10000)+100;
+                        if(rand == 0) {
+                            System.out.println("Random number: " + rand);
+                            lAtk2.setText("Found: Machoke, Attack power: " + rdAtk + ", HP: " + rdHp);
+                            lAtk2.setVisible(true);
+                            lAtk3.setVisible(true);
+                            img1.setVisible(true);
+                            n.setVisible(true);
+                            y.setVisible(true);
+                            lAtk2.setBounds(100,300,600,50);
+                            lAtk3.setBounds(60,350,440,30);
+                            y.setBounds(500,350,70,30);
+                            n.setBounds(575,350,70,30);
+                            img1.setBounds(250,110,200,200);
+                            y.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You attack Pokemon enemy");
+                                    String s = pk.attackEnemy(rdAtk, rdHp);
+                                    l6.setText("EXP: " + pk.getExp() + "/1000");
+                                    l3.setText("Level: " + pk.getLevel());
+                                    l4.setText("Attack: " + pk.getAttackPower());
+                                    l5.setText("HP: " + pk.getHp());
+                                    if(s.equals("Lose")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You lose ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.RED);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                    if(s.equals("Win")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You Win ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.GREEN);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                }
+                            });
+                            n.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You don't attack Pokemon enemy");
+                                    fAtk.setVisible(false);
+                                }
+                            });
+                            lAtk1.setForeground(Color.BLACK);
+                            lAtk2.setForeground(Color.BLACK);
+                            lAtk3.setForeground(Color.BLACK);
+                            pnAtk.setBackground(Color.GREEN);
+                        }
+                        if(rand == 1) {
+                            System.out.println("Random number: " + rand);
+                            lAtk2.setText("Found: Geodude, Attack power: " + rdAtk + ", HP: " + rdHp);
+                            lAtk2.setVisible(true);
+                            lAtk3.setVisible(true);
+                            img2.setVisible(true);
+                            n.setVisible(true);
+                            y.setVisible(true);
+                            lAtk2.setBounds(100,300,600,50);
+                            lAtk3.setBounds(60,350,440,30);
+                            y.setBounds(500,350,70,30);
+                            n.setBounds(575,350,70,30);
+                            img2.setBounds(250,110,200,200);
+                            y.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You attack Pokemon enemy");
+                                    String s = pk.attackEnemy(rdAtk, rdHp);
+                                    l6.setText("EXP: " + pk.getExp() + "/1000");
+                                    l3.setText("Level: " + pk.getLevel());
+                                    l4.setText("Attack: " + pk.getAttackPower());
+                                    l5.setText("HP: " + pk.getHp());
+                                    if(s.equals("Lose")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You lose ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.RED);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                    if(s.equals("Win")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You Win ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.GREEN);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                }
+                            });
+                            n.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You don't attack Pokemon enemy");
+                                    fAtk.setVisible(false);
+                                }
+                            });
+                            lAtk1.setForeground(Color.BLACK);
+                            lAtk2.setForeground(Color.BLACK);
+                            lAtk3.setForeground(Color.BLACK);
+                            pnAtk.setBackground(Color.GRAY);
+                        }
+                        if(rand == 2) {
+                            System.out.println("Random number: " + rand);
+                            lAtk2.setText("Found: Gengar, Attack power: " + rdAtk + ", HP: " + rdHp);
+                            lAtk2.setVisible(true);
+                            lAtk3.setVisible(true);
+                            img3.setVisible(true);
+                            n.setVisible(true);
+                            y.setVisible(true);
+                            lAtk2.setBounds(100,300,600,50);
+                            lAtk3.setBounds(60,350,440,30);
+                            y.setBounds(500,350,70,30);
+                            n.setBounds(575,350,70,30);
+                            img3.setBounds(250,110,200,200);
+                            y.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You attack Pokemon enemy");
+                                    String s = pk.attackEnemy(rdAtk, rdHp);
+                                    l6.setText("EXP: " + pk.getExp() + "/1000");
+                                    l3.setText("Level: " + pk.getLevel());
+                                    l4.setText("Attack: " + pk.getAttackPower());
+                                    l5.setText("HP: " + pk.getHp());
+                                    if(s.equals("Lose")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You lose ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.RED);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                    if(s.equals("Win")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You Win ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.GREEN);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                }
+                            });
+                            n.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You don't attack Pokemon enemy");
+                                    fAtk.setVisible(false);
+                                }
+                            });
+                            lAtk1.setForeground(Color.BLACK);
+                            lAtk2.setForeground(Color.BLACK);
+                            lAtk3.setForeground(Color.BLACK);
+                            pnAtk.setBackground(Color.GRAY);
+                        }
+                        if(rand == 3) {
+                            System.out.println("Random number: " + rand);
+                            lAtk2.setText("Found: Gengar, Attack power: " + rdAtk + ", HP: " + rdHp);
+                            lAtk2.setVisible(true);
+                            lAtk3.setVisible(true);
+                            img4.setVisible(true);
+                            n.setVisible(true);
+                            y.setVisible(true);
+                            lAtk2.setBounds(100,300,600,50);
+                            lAtk3.setBounds(60,350,440,30);
+                            y.setBounds(500,350,70,30);
+                            n.setBounds(575,350,70,30);
+                            img4.setBounds(250,110,200,200);
+                            y.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You attack Pokemon enemy");
+                                    String s = pk.attackEnemy(rdAtk, rdHp);
+                                    l6.setText("EXP: " + pk.getExp() + "/1000");
+                                    l3.setText("Level: " + pk.getLevel());
+                                    l4.setText("Attack: " + pk.getAttackPower());
+                                    l5.setText("HP: " + pk.getHp());
+                                    if(s.equals("Lose")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You lose ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.RED);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                    if(s.equals("Win")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You Win ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.GREEN);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                }
+                            });
+                            n.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You don't attack Pokemon enemy");
+                                    fAtk.setVisible(false);
+                                }
+                            });
+                            lAtk1.setForeground(Color.BLACK);
+                            lAtk2.setForeground(Color.BLACK);
+                            lAtk3.setForeground(Color.BLACK);
+                            pnAtk.setBackground(Color.magenta);
+                        }
+                        if(rand == 4) {
+                            System.out.println("Random number: " + rand);
+                            lAtk2.setText("Found: Onix, Attack power: " + rdAtk + ", HP: " + rdHp);
+                            lAtk2.setVisible(true);
+                            lAtk3.setVisible(true);
+                            img5.setVisible(true);
+                            n.setVisible(true);
+                            y.setVisible(true);
+                            lAtk2.setBounds(100,300,600,50);
+                            lAtk3.setBounds(60,350,440,30);
+                            y.setBounds(500,350,70,30);
+                            n.setBounds(575,350,70,30);
+                            img5.setBounds(250,110,200,200);
+                            y.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You attack Pokemon enemy");
+                                    String s = pk.attackEnemy(rdAtk, rdHp);
+                                    l6.setText("EXP: " + pk.getExp() + "/1000");
+                                    l3.setText("Level: " + pk.getLevel());
+                                    l4.setText("Attack: " + pk.getAttackPower());
+                                    l5.setText("HP: " + pk.getHp());
+                                    if(s.equals("Lose")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You lose ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.RED);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                    if(s.equals("Win")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You Win ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.GREEN);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                }
+                            });
+                            n.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You don't attack Pokemon enemy");
+                                    fAtk.setVisible(false);
+                                }
+                            });
+                            lAtk1.setForeground(Color.BLACK);
+                            lAtk2.setForeground(Color.BLACK);
+                            lAtk3.setForeground(Color.BLACK);
+                            pnAtk.setBackground(Color.GRAY);
+                        }
+                        if(rand == 5) {
+                            System.out.println("Random number: " + rand);
+                            lAtk2.setText("Found: Jynx, Attack power: " + rdAtk + ", HP: " + rdHp);
+                            lAtk2.setVisible(true);
+                            lAtk3.setVisible(true);
+                            img6.setVisible(true);
+                            n.setVisible(true);
+                            y.setVisible(true);
+                            lAtk2.setBounds(100,300,600,50);
+                            lAtk3.setBounds(60,350,440,30);
+                            y.setBounds(500,350,70,30);
+                            n.setBounds(575,350,70,30);
+                            img6.setBounds(250,110,200,200);
+                            y.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You attack Pokemon enemy");
+                                    String s = pk.attackEnemy(rdAtk, rdHp);
+                                    l6.setText("EXP: " + pk.getExp() + "/1000");
+                                    l3.setText("Level: " + pk.getLevel());
+                                    l4.setText("Attack: " + pk.getAttackPower());
+                                    l5.setText("HP: " + pk.getHp());
+                                    if(s.equals("Lose")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You lose ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.RED);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                    if(s.equals("Win")) {
+                                        JFrame jfl = new JFrame("Attack result");
+                                        JPanel jpl = new JPanel();
+                                        JLabel jll = new JLabel("You Win ! ");
+                                        JButton okl = new JButton("OK");
+                                        jpl.setLayout(new FlowLayout());
+                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+                                        jpl.add(jll);
+                                        jpl.add(okl);
+                                        jfl.add(jpl);
+                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                        okl.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                jfl.setVisible(false);
+                                                fAtk.setVisible(false);
+                                            }
+                                        });
+                                        jpl.setBackground(Color.GREEN);
+                                        jfl.setSize(300,80);
+                                        jfl.setLocationRelativeTo(null);
+                                        jfl.setResizable(false);
+                                        jfl.setVisible(true);
+                                    }
+                                }
+                            });
+                            n.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    System.out.println("You don't attack Pokemon enemy");
+                                    fAtk.setVisible(false);
+                                }
+                            });
+                            lAtk1.setForeground(Color.BLACK);
+                            lAtk2.setForeground(Color.BLACK);
+                            lAtk3.setForeground(Color.BLACK);
+                            pnAtk.setBackground(Color.RED);
+                        }
+                    }
+                });
+
+                lAtk2.setVisible(false);
+                lAtk3.setVisible(false);
+                n.setVisible(false);
+                y.setVisible(false);
+                img1.setVisible(false);
+                img2.setVisible(false);
+                img3.setVisible(false);
+                img4.setVisible(false);
+                img5.setVisible(false);
+                img6.setVisible(false);
+                n.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                y.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                rd.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                fAtk.add(pnAtk);
+                pnAtk.setLayout(null);
+                pnAtk.setBackground(Color.DARK_GRAY);
+                fAtk.setVisible(true);
+                fAtk.setSize(700,500);
+                fAtk.setResizable(false);
+                fAtk.setLocationRelativeTo(null);
+                // Attack menu ------------------------------------------------------
             }
         });
         l2.setForeground(Color.lightGray);
