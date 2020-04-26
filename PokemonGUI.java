@@ -364,7 +364,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusPikachu() {
         // Pikachu
         String s = "Attack\nEnemy";
-        Pikachu pk = new Pikachu("Pikachu",500,400,1);
+        Pikachu pk = new Pikachu("Pikachu",2500,2400,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -644,7 +644,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                     public void actionPerformed(ActionEvent e) { // JFrame size 700 * 500
                         rd.setVisible(false);
                         Random r = new Random();
-                        int rand = 0;//(int)(Math.random()*6);
+                        int rand = (int)(Math.random()*6);
                         int rdAtk = r.nextInt(20000)+100;
                         int rdHp = r.nextInt(10000)+100;
                         if(rand == 0) {
@@ -966,7 +966,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusCharmander() {
         // Charmander
         String s = "Attack\nEnemy";
-        Charmander cha = new Charmander("Charmander",490,390,1);
+        Charmander cha = new Charmander("Charmander",2490,2390,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -1568,7 +1568,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusEkans() {
         // Ekans
         String s = "Attack\nEnemy";
-        Ekans ek = new Ekans("Ekans",485,385,1);
+        Ekans ek = new Ekans("Ekans",2485,2385,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -2170,7 +2170,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusWartortle() {
         // Wartortle
         String s = "Attack\nEnemy";
-        Wartortle wt = new Wartortle("Wartortle",480,380,1);
+        Wartortle wt = new Wartortle("Wartortle",2480,2380,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -2772,7 +2772,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusSquirtle() {
         // Squirtle
         String s = "Attack\nEnemy";
-        Squirtle sq = new Squirtle("Squirtle",470,370,1);
+        Squirtle sq = new Squirtle("Squirtle",2470,2370,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -3374,7 +3374,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusDiglett() {
         // Diglett
         String s = "Attack\nEnemy";
-        Diglett dl = new Diglett("Diglett",460,360,1);
+        Diglett dl = new Diglett("Diglett",2460,2360,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -3977,7 +3977,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusPidgey() {
         // Pidgey
         String s = "Attack\nEnemy";
-        Pidgey pg = new Pidgey("Pidgey",400,300,1);
+        Pidgey pg = new Pidgey("Pidgey",2400,2300,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -4579,7 +4579,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusRattata() {
         // Snorlax
         String s = "Attack\nEnemy";
-        Snorlax  sl = new Snorlax ("Snorlax ",395,295,1);
+        Snorlax  sl = new Snorlax ("Snorlax ",2395,2295,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -5182,7 +5182,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusMeowth() {
         // Meowth
         String s = "Attack\nEnemy";
-        Meowth mt = new Meowth("Meowth",390,290,1);
+        Meowth mt = new Meowth("Meowth",2390,2290,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
@@ -5784,7 +5784,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public void statusJigglypuff() {
         // Jigglypuff
         String s = "Attack\nEnemy";
-        Jigglypuff  gl = new Jigglypuff ("Jigglypuff ",395,295,1);
+        Jigglypuff  gl = new Jigglypuff ("Jigglypuff ",2395,2295,1);
         JPanel p1 = new JPanel();
         // Text Field
         JTextField tf = new JTextField("",25);
