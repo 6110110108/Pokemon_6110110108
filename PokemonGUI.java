@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class PokemonGUI extends JFrame implements ActionListener {
     private JMenuItem rank, item, exit, medium, high, developer, reference;
-    private int pressCount = 0, check = 0, resultDmg = 0, levelTrainer = 1, levelCheck = 0, hpDrop = 0, atkDrop = 0;
+    private int pressCount = 0, check = 0, resultDmg = 0, levelTrainer = 1, levelCheck = 0, hpDrop = 20, atkDrop = 20;
     private String getStringRank;
     private JLabel bg;
     private JPanel p1;
@@ -18,6 +18,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
     public PokemonGUI() {
         super("Pokémon");
         System.out.println("Start PokemonGUI class");
+        obj.setAtkDrop(atkDrop);
+        obj.setHpDrop(hpDrop);
         bg = new JLabel((new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_background.gif")));
         Dimension sizeDefault = new Dimension(1290,722);
         Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_iconbar.png");
@@ -144,13 +146,13 @@ public class PokemonGUI extends JFrame implements ActionListener {
             itd.setText("No item drop");
         }
         if(rand >= 30 && rand < 55.0) {
-            itd.setText("You got: HP BOOSTER");
+            itd.setText("You got: HP Booster");
         }
         if(rand >= 55.0 && rand < 80.0) {
-            itd.setText("You got: Attack BOOSTER");
+            itd.setText("You got: Attack Booster");
         }
         if(rand >= 80.0) {
-            itd.setText("You got: Attack and HP BOOSTER");
+            itd.setText("You got: Attack and HP Booster");
         }
         //-------------------------------- GET ITEM ------------------------------
         JFrame jfl = new JFrame("Attack result");
@@ -412,6 +414,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(pk.hp < pk.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                pk.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(pk.hp < pk.maxHp())
+                                    l5.setText("HP: " + pk.getHp());
+                                else
+                                    l5.setText("HP: " + pk.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(pk.attackPower < pk.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                pk.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(pk.attackPower < pk.maxAttack())
+                                    l4.setText("Attack: " + pk.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + pk.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -1014,6 +1129,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(cha.hp < cha.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                cha.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(cha.hp < cha.maxHp())
+                                    l5.setText("HP: " + cha.getHp());
+                                else
+                                    l5.setText("HP: " + cha.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(cha.attackPower < cha.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                cha.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(cha.attackPower < cha.maxAttack())
+                                    l4.setText("Attack: " + cha.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + cha.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -1616,6 +1844,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(ek.hp < ek.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                ek.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(ek.hp < ek.maxHp())
+                                    l5.setText("HP: " + ek.getHp());
+                                else
+                                    l5.setText("HP: " + ek.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(ek.attackPower < ek.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                ek.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(ek.attackPower < ek.maxAttack())
+                                    l4.setText("Attack: " + ek.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + ek.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -2218,6 +2559,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(wt.hp < wt.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                wt.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(wt.hp < wt.maxHp())
+                                    l5.setText("HP: " + wt.getHp());
+                                else
+                                    l5.setText("HP: " + wt.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(wt.attackPower < wt.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                wt.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(wt.attackPower < wt.maxAttack())
+                                    l4.setText("Attack: " + wt.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + wt.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -2820,6 +3274,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(sq.hp < sq.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                sq.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(sq.hp < sq.maxHp())
+                                    l5.setText("HP: " + sq.getHp());
+                                else
+                                    l5.setText("HP: " + sq.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(sq.attackPower < sq.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                sq.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(sq.attackPower < sq.maxAttack())
+                                    l4.setText("Attack: " + sq.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + sq.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -3422,6 +3989,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(dl.hp < dl.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                dl.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(dl.hp < dl.maxHp())
+                                    l5.setText("HP: " + dl.getHp());
+                                else
+                                    l5.setText("HP: " + dl.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(dl.attackPower < dl.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                dl.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(dl.attackPower < dl.maxAttack())
+                                    l4.setText("Attack: " + dl.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + dl.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -4025,6 +4705,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(pg.hp < pg.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                pg.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(pg.hp < pg.maxHp())
+                                    l5.setText("HP: " + pg.getHp());
+                                else
+                                    l5.setText("HP: " + pg.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(pg.attackPower < pg.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                pg.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(pg.attackPower < pg.maxAttack())
+                                    l4.setText("Attack: " + pg.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + pg.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -4627,6 +5420,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(sl.hp < sl.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                sl.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(sl.hp < sl.maxHp())
+                                    l5.setText("HP: " + sl.getHp());
+                                else
+                                    l5.setText("HP: " + sl.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(sl.attackPower < sl.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                sl.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(sl.attackPower < sl.maxAttack())
+                                    l4.setText("Attack: " + sl.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + sl.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -5230,6 +6136,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(mt.hp < mt.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                mt.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(mt.hp < mt.maxHp())
+                                    l5.setText("HP: " + mt.getHp());
+                                else
+                                    l5.setText("HP: " + mt.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(mt.attackPower < mt.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                mt.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(mt.attackPower < mt.maxAttack())
+                                    l4.setText("Attack: " + mt.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + mt.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
@@ -5832,6 +6851,119 @@ public class PokemonGUI extends JFrame implements ActionListener {
         p1.add(t2);
         p1.add(t3);
         p1.add(t4);
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
+        Color iCon = new Color(47, 255, 61); // 153,255,153
+        JButton t5 = new JButton("BOOSTER");
+        t5.setBounds(135,150,100,40); // x = t4 - 20, y = t4 - 50
+        t5.setBackground(iCon);
+        p1.add(t5);
+        t5.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        t5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImageIcon ic1 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_HP_icon.png");
+                ImageIcon ic2 = new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Menu_Attack_icon.png");
+                JFrame fb = new JFrame("Select item booster");
+                JPanel pb = new JPanel();
+                JLabel lb1 = new JLabel("Select Item");
+                JButton tb1 = new JButton("HP Booster");
+                JButton tb2 = new JButton("Attack Booster");
+                JButton okb = new JButton("Exit");
+                JLabel lb2 = new JLabel("Remaining Items: ");
+                JLabel lb3 = new JLabel();
+                lb3.setText("HP Booster: " + hpDrop);
+                JLabel lb4 = new JLabel();
+                lb4.setText("Attack Booster: " + atkDrop);
+                lb2.setFont(new Font("Courier New", Font.BOLD,15));
+                lb3.setFont(new Font("Courier New", Font.BOLD,15));
+                lb4.setFont(new Font("Courier New", Font.BOLD,15));
+                pb.setLayout(null);
+                tb1.setIcon(ic1);
+                tb2.setIcon(ic2);
+                lb1.setFont(new Font("Courier New", Font.BOLD,25));
+                lb1.setBounds(60,10,200,30);
+                lb2.setBounds(10,190,200,30);
+                lb3.setBounds(10,210,200,30);
+                lb4.setBounds(10,230,200,30);
+                tb1.setBounds(10,50,268,60);
+                tb2.setBounds(10,120,268,60);
+                okb.setBounds(210,215,60,30);
+                lb1.setForeground(Color.LIGHT_GRAY);
+                lb2.setForeground(Color.LIGHT_GRAY);
+                lb3.setForeground(Color.LIGHT_GRAY);
+                lb4.setForeground(Color.LIGHT_GRAY);
+                pb.setBackground(Color.darkGray);
+                pb.add(lb1);
+                pb.add(lb2);
+                pb.add(lb3);
+                pb.add(lb4);
+                pb.add(tb1);
+                pb.add(tb2);
+                pb.add(okb);
+                fb.add(pb);
+                okb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                tb1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(gl.hp < gl.maxHp()) {
+                            if(hpDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","HP Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                hpDrop--;
+                                obj.setHpDrop(hpDrop);
+                                gl.powerBoost("HP");
+                                lb3.setText("HP Booster: " + hpDrop);
+                                if(gl.hp < gl.maxHp())
+                                    l5.setText("HP: " + gl.getHp());
+                                else
+                                    l5.setText("HP: " + gl.maxHp());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum HP.","HP Booster", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }
+                });
+                tb2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(gl.attackPower < gl.maxAttack()){
+                            if(atkDrop <= 0) {
+                                JOptionPane.showMessageDialog(null,"You don't have this item.","Attack Booster", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                atkDrop--;
+                                obj.setAtkDrop(atkDrop);
+                                gl.powerBoost("ATK");
+                                lb4.setText("Attack Booster: " + atkDrop);
+                                if(gl.attackPower < gl.maxAttack())
+                                    l4.setText("Attack: " + gl.getAttackPower());
+                                else
+                                    l4.setText("Attack: " + gl.maxAttack());
+                            }
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"Your Pokemon has maximum attack power.","Attack Booster", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                });
+                okb.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fb.setVisible(false);
+                    }
+                });
+                fb.setVisible(true);
+                fb.setSize(300,300);
+                fb.setLocationRelativeTo(null);
+                fb.setResizable(false);
+            }
+        });
+        //------------------------------------------------ BOOST MENU --------------------------------------------------
         f.add(tf);
         f.add(ok);
         c.add(p1);
