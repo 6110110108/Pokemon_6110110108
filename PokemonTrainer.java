@@ -1,9 +1,7 @@
 
 public class PokemonTrainer {
     protected String name;
-    protected int level = 1;
-    protected int rank = 1;
-    protected int check = 0;
+    protected int level = 1, rank = 1, check = 0, hpDrop = 0, atkDrop = 0;
 
     public void setName(String name){
         this.name = name;
@@ -49,5 +47,34 @@ public class PokemonTrainer {
 
     public int startCheck(int ch){
         return ch;
+    }
+
+    public void itemDrop(double rand) {
+        if(rand >= 30.0 && rand < 55.0) {
+            hpDrop++;
+        }
+        if(rand >= 55.0 && rand < 80.0) {
+            atkDrop++;
+        }
+        if(rand >= 80.0) {
+            atkDrop++;
+            hpDrop++;
+        }
+    }
+
+    public void setHpDrop(int hpDrop) {
+        this.hpDrop = hpDrop;
+    }
+
+    private void setAtkDrop(int atkDrop) {
+        this.atkDrop = atkDrop;
+    }
+
+    public int getHpDrop() {
+        return hpDrop;
+    }
+
+    public int getAtkDrop() {
+        return atkDrop;
     }
 }
