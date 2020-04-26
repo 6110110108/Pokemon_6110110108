@@ -7,7 +7,6 @@ public abstract class Pokemon {
     protected int exp = 0;
     protected int check = 0, atkCheck = 0;
     protected int result = 0;
-    private PokemonTrainer obj = new PokemonTrainer();
 
     public Pokemon(String name, int hp, int attackPower, int level) {
         this.name = name;
@@ -302,15 +301,17 @@ public abstract class Pokemon {
 
     public int cumulativeDamage(int rAtk) {
         int cmtDmg = 0;
+        cmtDmg = rAtk;
         if(attackPower >= rAtk) {
-            cmtDmg = rAtk;
+            result = result + cmtDmg;
         }
-        result = result + cmtDmg;
+        else {
+            result = result - cmtDmg;
+        }
         return result;
     }
 
     public abstract String skillPokemon();
     public abstract int maxHp();
     public abstract int maxAttack();
-
 }
