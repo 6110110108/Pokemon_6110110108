@@ -66,7 +66,7 @@ public class PokemonTrainer {
         this.hpDrop = hpDrop;
     }
 
-    private void setAtkDrop(int atkDrop) {
+    public void setAtkDrop(int atkDrop) {
         this.atkDrop = atkDrop;
     }
 
