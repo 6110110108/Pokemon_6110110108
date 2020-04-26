@@ -56,7 +56,7 @@ public abstract class Pokemon {
                 return attackPower;
             }
             else {
-                if(attackPower <= maxAttack())
+                if(attackPower < maxAttack())
                     return attackPower;
                 else
                     return attackPower = maxAttack();
@@ -102,7 +102,7 @@ public abstract class Pokemon {
     public void attackPokemonWSkill() {
         String s = skillPokemon();
         int maxAttack = maxAttack();
-        if(attackPower <= maxAttack) {
+        if(attackPower < maxAttack) {
             if(s.equals("Fire")){
                  attackPower = attackPower + (attackPower * 50) / 100;
             }
@@ -123,7 +123,7 @@ public abstract class Pokemon {
 
     public void sleep(int sleep) {
         atkCheck = 0;
-        if(hp <= maxHp()){
+        if(hp < maxHp()){
             if(sleep == 1)
                 hp = hp + 10000; // Test
             else if(sleep == 2)
@@ -142,7 +142,7 @@ public abstract class Pokemon {
 
     public void levelUptoAtk() {
         int rand = (int)(Math.random()*5);
-        if(attackPower <= maxAttack()) {
+        if(attackPower < maxAttack()) {
             if(rand == 0) {
                 attackPower += 50;
             }
@@ -166,7 +166,7 @@ public abstract class Pokemon {
 
     public void levelUptoHp() {
         int rand = (int)(Math.random()*5);
-        if(hp <= maxHp()) {
+        if(hp < maxHp()) {
             if(rand == 0) {
                 hp += 50;
             }
@@ -309,6 +309,21 @@ public abstract class Pokemon {
             result = result - cmtDmg;
         }
         return result;
+    }
+
+    public void powerBoost(String item) {
+        if(item.equals("HP")) {
+            if(hp < maxHp())
+                hp = hp + 1000;
+            else
+                hp = maxHp();
+        }
+        if(item.equals("ATK")) {
+            if(attackPower < maxAttack())
+                attackPower = attackPower + 1000;
+            else
+                attackPower = maxAttack();
+        }
     }
 
     public abstract String skillPokemon();
