@@ -5,5 +5,6 @@ public class PokemonGame {
         System.out.println("    WELCOME TO POKEMON GAME");
         System.out.println("###############################");
         new PokemonGUI();
+
     }
 }
