@@ -5,4 +5,4 @@
 >> Video Description
 
 3. สามารถดาวน์โหลด Code และ รูปภาพ ทั้งหมดได้ใน Folder
->> Allfile
+>> All file
