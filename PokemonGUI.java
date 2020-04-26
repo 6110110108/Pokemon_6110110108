@@ -3,11 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.NullPointerException;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 public class PokemonGUI extends JFrame implements ActionListener {
-    private JMenuItem rank, exit, medium, high, developer, reference;
-    private int pressCount = 0, check = 0, resultDmg = 0, levelTrainer = 1, levelCheck = 0;
+    private JMenuItem rank, item, exit, medium, high, developer, reference;
+    private int pressCount = 0, check = 0, resultDmg = 0, levelTrainer = 1, levelCheck = 0, hpDrop = 0, atkDrop = 0;
     private String getStringRank;
     private JLabel bg;
     private JPanel p1;
@@ -76,6 +77,9 @@ public class PokemonGUI extends JFrame implements ActionListener {
         rank = new JMenuItem("Trainer Status");
         rank.addActionListener(this);
         pokemonMenu.add(rank);
+        item = new JMenuItem("Item in Bag");
+        item.addActionListener(this);
+        pokemonMenu.add(item);
         exit = new JMenuItem("Exit");
         exit.addActionListener(this);
         pokemonMenu.add(exit);
@@ -125,6 +129,125 @@ public class PokemonGUI extends JFrame implements ActionListener {
         }
     }
 
+    public void attackWin() {
+        //-------------------------------- GET ITEM -----------------------------
+        JLabel itd = new JLabel();
+        itd.setFont(new Font("Courier New" , Font.BOLD,20));
+        double rand = Math.random();
+        rand = rand * 100;
+        String randStr  = new DecimalFormat("0.00").format(rand);
+        System.out.println("Percent of item will be get = " + randStr + " %");
+        obj.itemDrop(rand);
+        hpDrop = obj.getHpDrop();
+        atkDrop = obj.getAtkDrop();
+        if(rand >= 0 && rand < 30) {
+            itd.setText("No item drop");
+        }
+        if(rand >= 30 && rand < 55.0) {
+            itd.setText("You got: HP BOOSTER");
+        }
+        if(rand >= 55.0 && rand < 80.0) {
+            itd.setText("You got: Attack BOOSTER");
+        }
+        if(rand >= 80.0) {
+            itd.setText("You got: Attack and HP BOOSTER");
+        }
+        //-------------------------------- GET ITEM ------------------------------
+        JFrame jfl = new JFrame("Attack result");
+        JPanel jpl = new JPanel();
+        JLabel jll = new JLabel("You Win ! ");
+        JButton okl = new JButton("OK");
+        jpl.setLayout(new FlowLayout());
+        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+        jpl.add(jll);
+        jpl.add(okl);
+        jpl.add(itd); //-------------------------- GET ITEM
+        jfl.add(jpl);
+        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        okl.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jfl.setVisible(false);
+            }
+        });
+        jpl.setBackground(Color.GREEN);
+        jfl.setSize(400,110);
+        jfl.setLocationRelativeTo(null);
+        jfl.setResizable(false);
+        jfl.setVisible(true);
+    }
+
+    public void attackLose() {
+        JFrame jfl = new JFrame("Attack result");
+        JPanel jpl = new JPanel();
+        JLabel jll = new JLabel("You lose ! ");
+        JButton okl = new JButton("OK");
+        jpl.setLayout(new FlowLayout());
+        jll.setFont(new Font("Courier New" , Font.BOLD,30));
+        jpl.add(jll);
+        jpl.add(okl);
+        jfl.add(jpl);
+        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        okl.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jfl.setVisible(false);
+            }
+        });
+        jpl.setBackground(Color.RED);
+        jfl.setSize(300,80);
+        jfl.setLocationRelativeTo(null);
+        jfl.setResizable(false);
+        jfl.setVisible(true);
+    }
+
+    public void itemDrop() {
+        JFrame ftd = new JFrame("Item in Bag");
+        JPanel ptd1 = new JPanel();
+        JPanel ptd2 = new JPanel();
+        JLabel hpic = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_HP_icon.png"));
+        JLabel atkic = new JLabel(new ImageIcon("C:\\Users\\ASUS\\IdeaProjects\\Pokemon_6110110108\\src\\1_Attack_icon.png"));
+        JLabel lhp1 = new JLabel("HP Booster.");
+        JLabel latk1 = new JLabel("Attack Booster.");
+        lhp1.setFont(new Font("Courier New" , Font.BOLD,30));
+        latk1.setFont(new Font("Courier New" , Font.BOLD,30));
+        JLabel lhp2 = new JLabel();
+        JLabel latk2 = new JLabel();
+        lhp2.setText("You have: " + hpDrop);
+        latk2.setText("You have: " + atkDrop);
+        lhp2.setFont(new Font("Courier New" , Font.BOLD,20));
+        latk2.setFont(new Font("Courier New" , Font.BOLD,20));
+
+        lhp1.setBounds(130,25,300,50);
+        lhp2.setBounds(130,65,300,50);
+
+        latk1.setBounds(130,165,300,50);
+        latk2.setBounds(130,205,300,50);
+
+        hpic.setBounds(20,25,100,100);
+        atkic.setBounds(20,165,100,100);
+
+        ptd1.setBounds(10,10,447,130);
+        ptd2.setBounds(10,150,447,130);
+
+        ftd.add(lhp2);
+        ftd.add(lhp1);
+        ftd.add(latk1);
+        ftd.add(latk2);
+        ftd.add(hpic);
+        ftd.add(atkic);
+        ftd.getContentPane().add(ptd1);
+        ftd.getContentPane().add(ptd2);
+        ptd1.setBackground(Color.LIGHT_GRAY);
+        ptd2.setBackground(Color.LIGHT_GRAY);
+        ftd.getContentPane().setBackground(Color.DARK_GRAY);
+        ftd.setLayout(null);
+        ftd.setSize(480,330);
+        ftd.setLocationRelativeTo(null);
+        ftd.setResizable(false);
+        ftd.setVisible(true);
+    }
+
     public void actionPerformed(ActionEvent event) {
         int ch = 0;
         Object src = event.getSource();
@@ -145,6 +268,13 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println("There's something wrong.");
                 JOptionPane.showMessageDialog(jf,"There's something wrong.","Warning", JOptionPane.WARNING_MESSAGE);
             }
+        }
+        else if(src == item) {
+            ch = obj.startCheck(check);
+            if(ch >= 1)
+                itemDrop();
+            else
+                JOptionPane.showMessageDialog(jf,"You must start the game before beginning this.","Warning", JOptionPane.WARNING_MESSAGE);
         }
         else if(src == exit){
             int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to exit Pokémon game?",
@@ -514,7 +644,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                     public void actionPerformed(ActionEvent e) { // JFrame size 700 * 500
                         rd.setVisible(false);
                         Random r = new Random();
-                        int rand = (int)(Math.random()*6);
+                        int rand = 0;//(int)(Math.random()*6);
                         int rdAtk = r.nextInt(20000)+100;
                         int rdHp = r.nextInt(10000)+100;
                         if(rand == 0) {
@@ -543,52 +673,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pk.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -630,52 +720,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pk.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -717,52 +767,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pk.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -804,52 +814,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pk.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -891,52 +861,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pk.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -978,52 +908,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pk.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -1367,52 +1257,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = cha.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -1454,52 +1304,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = cha.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -1541,52 +1351,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = cha.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -1628,52 +1398,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = cha.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -1715,52 +1445,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = cha.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -1802,52 +1492,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = cha.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -2209,52 +1859,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = ek.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -2296,52 +1906,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = ek.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -2383,52 +1953,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = ek.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -2470,52 +2000,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = ek.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -2557,52 +2047,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = ek.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -2644,52 +2094,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = ek.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -3051,52 +2461,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = wt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -3138,52 +2508,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = wt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -3225,52 +2555,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = wt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -3312,52 +2602,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = wt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -3399,52 +2649,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = wt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -3486,52 +2696,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = wt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -3893,52 +3063,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sq.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -3980,52 +3110,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sq.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -4067,52 +3157,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sq.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -4154,52 +3204,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sq.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -4241,52 +3251,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sq.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -4328,52 +3298,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sq.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -4735,52 +3665,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = dl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -4822,52 +3712,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = dl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -4909,52 +3759,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = dl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -4996,52 +3806,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = dl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -5083,52 +3853,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = dl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -5170,52 +3900,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = dl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -5578,52 +4268,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pg.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -5665,52 +4315,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pg.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -5752,52 +4362,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pg.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -5839,52 +4409,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pg.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -5926,52 +4456,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pg.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -6013,52 +4503,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = pg.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -6420,52 +4870,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -6507,52 +4917,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -6594,52 +4964,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -6681,52 +5011,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -6768,52 +5058,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -6855,52 +5105,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = sl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -7263,52 +5473,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = mt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -7350,52 +5520,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = mt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -7437,52 +5567,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = mt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -7524,52 +5614,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = mt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -7611,52 +5661,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = mt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -7698,52 +5708,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = mt.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -8105,52 +6075,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = gl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -8192,52 +6122,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = gl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -8279,52 +6169,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = gl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -8366,52 +6216,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = gl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -8453,52 +6263,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = gl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
@@ -8540,52 +6310,12 @@ public class PokemonGUI extends JFrame implements ActionListener {
                                     System.out.println("Cumulative damage total = " + resultDmg);
                                     levelCheck = gl.getLevel(); //------------------------------------- Level
                                     if(s.equals("Lose")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You lose ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.RED);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackLose();
+                                        fAtk.setVisible(false);
                                     }
                                     if(s.equals("Win")) {
-                                        JFrame jfl = new JFrame("Attack result");
-                                        JPanel jpl = new JPanel();
-                                        JLabel jll = new JLabel("You Win ! ");
-                                        JButton okl = new JButton("OK");
-                                        jpl.setLayout(new FlowLayout());
-                                        jll.setFont(new Font("Courier New" , Font.BOLD,30));
-                                        jpl.add(jll);
-                                        jpl.add(okl);
-                                        jfl.add(jpl);
-                                        okl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                        okl.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                jfl.setVisible(false);
-                                                fAtk.setVisible(false);
-                                            }
-                                        });
-                                        jpl.setBackground(Color.GREEN);
-                                        jfl.setSize(300,80);
-                                        jfl.setLocationRelativeTo(null);
-                                        jfl.setResizable(false);
-                                        jfl.setVisible(true);
+                                        attackWin();
+                                        fAtk.setVisible(false);
                                     }
                                 }
                             });
