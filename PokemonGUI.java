@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class PokemonGUI extends JFrame implements ActionListener {
     private JMenuItem rank, item, exit, medium, high, developer, reference;
-    private int pressCount = 0, check = 0, resultDmg = 0, levelTrainer = 1, levelCheck = 0, hpDrop = 20, atkDrop = 20;
+    private int pressCount = 0, check = 0, resultDmg = 0, levelTrainer = 1, levelCheck = 0, hpDrop = 5, atkDrop = 5;
     private String getStringRank;
     private JLabel bg;
     private JPanel p1;
@@ -703,8 +703,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 pk.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -1774,7 +1774,7 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 cha.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 11 ) {
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
                     JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
@@ -2489,8 +2489,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 ek.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -3204,8 +3204,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 wt.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -3919,8 +3919,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 sq.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -4634,8 +4634,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 dl.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -5350,8 +5350,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 pg.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -6065,8 +6065,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 sl.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -6781,8 +6781,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 mt.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
@@ -7496,8 +7496,8 @@ public class PokemonGUI extends JFrame implements ActionListener {
                 System.out.println(get);
                 gl.setName(get);
                 int lengthNameCheck = get.length();
-                if(lengthNameCheck <= 0 || lengthNameCheck > 8 ) {
-                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 8 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
+                if(lengthNameCheck <= 0 || lengthNameCheck > 10 ) {
+                    JOptionPane.showMessageDialog(jf, "You must enter more than 1 letter and less than 10 letter.", "Warning", JOptionPane.ERROR_MESSAGE);
                 }
                 else{
                     l1.setText(get);
