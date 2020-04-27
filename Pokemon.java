@@ -75,7 +75,7 @@ public abstract class Pokemon {
     public void feedPokemon(String food) {
         foodFeed(food);
         if(exp < 1000) {
-            exp = exp + 500; //test
+            exp = exp + 10;
         }
         else {
             exp = 0;
@@ -95,7 +95,7 @@ public abstract class Pokemon {
              attackPower = attackPower + 2;
         }
         else if(food.equals("Honey")){
-             attackPower = attackPower + 10000; // Test
+             attackPower = attackPower + 1;
         }
     }
 
@@ -125,7 +125,7 @@ public abstract class Pokemon {
         atkCheck = 0;
         if(hp < maxHp()){
             if(sleep == 1)
-                hp = hp + 10000; // Test
+                hp = hp + 10;
             else if(sleep == 2)
                 hp = hp + 20;
             else if(sleep == 3)
